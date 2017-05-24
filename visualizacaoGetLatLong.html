@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<body>
+	<script charset="utf-8">
+    var geocoder = new google.maps.Geocoder();
+
+		d3.csv("acidentesTransito2015.csv",function(error, dataCSV) {
+    		if (error) throw error;
+				for (var i = 0; i < dataCSV.length; i++) {
+					var row = dataCSV[i];
+					var address = row.endereco + " " + row.numero + ", " +  row.bairro + ", Recife, Pernambuco, Brasil";
+					//
+			    // geocoder.geocode( { 'address': address}, function(results, status) {
+			    //   if (status == google.maps.GeocoderStatus.OK) {
+			    //   var latitude = results[0].geometry.location.lat();
+			    //   var longitude = results[0].geometry.location.lng();
+			    //   console.log("latitude > " + latitude)
+			    //   console.log("longitude > " + longitude)
+			    //   }
+			    // });
+				}
+		});
+  </script>
+</body>
