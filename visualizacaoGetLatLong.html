@@ -3,85 +3,79 @@
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB99i26llfd7hBwjXLqGqSCh03uqaUJOmw"></script>
 <body>
-		<input id="saveFile" type="saveFile" value="saveFile" onclick="writeCSVOnFile();" />
+        <input id="saveFile" type="saveFile" value="saveFile" onclick="writeCSVOnFile();" />
     <script charset="utf-8">
-				var geocoder = new google.maps.Geocoder();
-				var dataStr = "id,tipo,situacao,data,hora,bairro,endereco,numero,complemento,natureza,descricao,auto,moto,ciclom,ciclista,pedestre,onibus,caminhao,viatura,outros,vitimas,latitude,longitude\n";
-				d3.csv("acidentesTransito2015_2.csv",function(error, dataCSV) {
+                var geocoder = new google.maps.Geocoder();
+                var dataStr = "id,tipo,situacao,data,hora,bairro,endereco,numero,complemento,natureza,descricao,auto,moto,ciclom,ciclista,pedestre,onibus,caminhao,viatura,outros,vitimas,latitude,longitude\n";
+                d3.csv("acidentesTransito2015_2.csv",function(error, dataCSV) {
             if (error) throw error;
-                for (var i = 0; i < dataCSV.length; i++) {
+                //for (var i = 0; i < dataCSV.length; i++) {
+                    var i = 1823;
+                    var myTimeout = setInterval(function(){
+                      if (i < 2500){
+                          console.log(i)
+                          var row = dataCSV[i];
+                          var address = row.endereco + " " + row.numero + ", " +  row.bairro + ", Recife, Pernambuco, Brasil";
+                          var latitude = "error";
+                          var longitude = "error";
+                              if (!('latitude' in row) || row.latitude == "error" || row.longitude == "error"){
+                                  geocodeFunction(geocoder,address,i,latitude,longitude,function(result){
+                                      var id = result[0];
+                                      latitude = result[1];
+                                      longitude = result[2];
+                                      row = dataCSV[id];
+                                      var arr = Object.keys(row).map(function (key) { return row[key]; });
+                                      var columnsStr = ""
+                                      for (column in row){
+                                          if (column == "latitude" && latitude != "error" ){
+                                              row[column] = latitude;
+                                          }else if(column=="longitude" && longitude != "error"){
+                                              row[column] = longitude;
+                                          }
+                                          columnsStr = columnsStr + row[column] + ","
+                                      }
+                                      if(('latitude' in row)){
+                                          dataStr = dataStr + columnsStr+"\n";
+                                      }else{
+                                          dataStr = dataStr + columnsStr+""+latitude + "," +longitude +"\n";
+                                      }
 
-									console.log(i)
-                    var row = dataCSV[i];
-                    var address = row.endereco + " " + row.numero + ", " +  row.bairro + ", Recife, Pernambuco, Brasil";
-                    var latitude = "error";
-                    var longitude = "error";
-										if (!('latitude' in row) || row.latitude == "error" || row.longitude == "error"){
-											geocodeFunction(geocoder,address,i,latitude,longitude,function(result){
-													var id = result[0];
-													latitude = result[1];
-													longitude = result[2];
-													row = dataCSV[id];
-													var arr = Object.keys(row).map(function (key) { return row[key]; });
-													var columnsStr = ""
-													for (column in row){
-														if (column == "latitude" && latitude != "error" ){
-															row[column] = latitude;
-														}else if(column=="longitude" && longitude != "error"){
-															row[column] = longitude;
-														}
-														columnsStr = columnsStr + row[column] + ","
-													}
-													if(('latitude' in row)){
-														dataStr = dataStr + columnsStr+"\n";
-													}else{
-														dataStr = dataStr + columnsStr+""+latitude + "," +longitude +"\n";
-													}
+                                  })
+                             }else{
+                                  var arr = Object.keys(row).map(function (key) { return row[key]; });
+                                   dataStr = dataStr + arr.join(',')+"\n";
+                           }
+                          i++;
+                      }else{
+                          clearInterval(myTimeout);
+													console.log("done")
 
-												})
-									}else{
-													var arr = Object.keys(row).map(function (key) { return row[key]; });
-										 			dataStr = dataStr + arr.join(',')+"\n";
-									 }
-
-                }
-								console.log("done")
+                      }
+                    },1400);
         });
 
 function geocodeFunction(geocoder, address, i, latitude, longitude, callback){
-	setTimeout(function(){
-		geocoder.geocode( { 'address': address}, function(results, status) {
-			if (status == google.maps.GeocoderStatus.OK) {
-				latitude = results[0].geometry.location.lat();
-				longitude = results[0].geometry.location.lng();
-			}else if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT){
-				 setTimeout(9000000);
-				 //geocodeFunction(geocoder, address, i, latitude, longitude, callback);
-			}
-				callback([i,latitude,longitude]);
-				console.log("Status " +i +"-> " + status)
-			});
-		},0);
+    geocoder.geocode( { 'address': address}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            latitude = results[0].geometry.location.lat();
+            longitude = results[0].geometry.location.lng();
+        }else if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT){
+             //geocodeFunction(geocoder, address, i, latitude, longitude, callback);
+        }
+            callback([i,latitude,longitude]);
+            console.log("Status " +i +"-> " + status)
+        });
 }
 
 function writeCSVOnFile(){
-	console.log(dataStr);
-
-  var blob = new Blob([dataStr],{ type: 'text/csv;charset=utf-8;' });
-	var a = document.createElement('a');
-	a.href = URL.createObjectURL(blob);
-	a.setAttribute('download', "acidentesTransito2015_2.csv");
-	document.body.appendChild(a);
-	a.click();
-	document.body.removeChild(a);
-}
-
-        //var txtFile = new File(blob,"acidentesTransito2015_2.csv");
-
-        //var txtFile = new File("acidentesTransito2015_2.csv");
-        //txtFile.open("w"); //
-        //txtFile.writeln(dataStr);
-        //txtFile.close();
-
-  </script>
+    console.log(dataStr);
+    var blob = new Blob([dataStr],{ type: 'text/csv;charset=utf-8;' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.setAttribute('download', "acidentesTransito2015_2.csv");
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+</script>
 </body>
