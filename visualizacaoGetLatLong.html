@@ -7,17 +7,17 @@
     <script charset="utf-8">
                 var geocoder = new google.maps.Geocoder();
                 var dataStr = "id,tipo,situacao,data,hora,bairro,endereco,numero,complemento,natureza,descricao,auto,moto,ciclom,ciclista,pedestre,onibus,caminhao,viatura,outros,vitimas,latitude,longitude\n";
-                d3.csv("acidentesTransito2015_2.csv",function(error, dataCSV) {
+                d3.csv("acidentesTransito2016.csv",function(error, dataCSV) {
             if (error) throw error;
                 //for (var i = 0; i < dataCSV.length; i++) {
-                    var i = 1296;
+                    var i = 236;
                     var myTimeout = setInterval(function(){
-                      if (i < 1900){
+                      if (i < 420){
                           var row = dataCSV[i];
                           var address = row.endereco + " " + row.numero + ", " +  row.bairro + ", Recife, Pernambuco, Brasil";
                           var latitude = "error";
                           var longitude = "error";
-                          console.log(i + " -> " + address)
+                          console.log(row.id + " -> " + address)
                               if (!('latitude' in row) || row.latitude == "error" || row.longitude == "error"){
                                   geocodeFunction(geocoder,address,i,latitude,longitude,function(result){
                                       var id = result[0];
@@ -72,7 +72,7 @@ function writeCSVOnFile(){
     var blob = new Blob([dataStr],{ type: 'text/csv;charset=utf-8;' });
     var a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.setAttribute('download', "acidentesTransito2015_2_Manu.csv");
+    a.setAttribute('download', "acidentesTransito2016_Manu.csv");
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
