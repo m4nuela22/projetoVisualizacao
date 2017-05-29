@@ -10,9 +10,9 @@
                 d3.csv("acidentesTransito2016.csv",function(error, dataCSV) {
             if (error) throw error;
                 //for (var i = 0; i < dataCSV.length; i++) {
-                    var i = 236;
+                    var i = 3000;
                     var myTimeout = setInterval(function(){
-                      if (i < 420){
+                      if (i < 3250){
                           var row = dataCSV[i];
                           var address = row.endereco + " " + row.numero + ", " +  row.bairro + ", Recife, Pernambuco, Brasil";
                           var latitude = "error";
