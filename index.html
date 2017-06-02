@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+         <meta charset="utf-8">
+         <title> Acidentes de Trânsito - Recife </title>
+         <script src="https://d3js.org/d3.v4.min.js"></script>
+         <script src="recurrentTimeSelectionWidget.js"></script>
+
+    </head>
+    <body>
+
+          <script>
+              var margin = {top:10, right:10, bottom:10,left:10};
+              var width = screen.width - margin.left - margin.right;
+              var height = screen.height - margin.top - margin.bottom;
+
+              var mainSVG = d3.select("body")
+              .append("svg")
+              .attr("id","mainSVG")
+              .attr("width", width)
+              .attr("height",height);
+
+              d3.csv("acidentesTransito2015.csv",function(error, dataCSV2015) {
+                  if (error) throw error;
+                  d3.csv("acidentesTransito2016.csv",function(error, dataCSV2016) {
+                      if (error) throw error;
+                      createRecurrentTimeSelectionWidget(dataCSV2015,dataCSV2016);
+                  });
+              });
+
+
+          </script>
+    </body>
+</html>
