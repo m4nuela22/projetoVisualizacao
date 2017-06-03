@@ -1,5 +1,0 @@
-Nome,Tipo,Sub-Tipo,Local,Interconxex†o 0,Interconxex†o 1,Interconxex†o 2,Interconxex†o 3,Interconxex†o 4
-Rio Capibaribe,Ponto,Rio,Recife Antigo,Rio Beberibe,Bacia do Pina,x,x,x
-Rio Beberibe,Ponto,Rio,Recife Antigo,Rio Capibaribe,Bacia do Pina,x,x,x
-Bacia do Pina,logradouro,Pr_dio,Recife Antigo,Cais do Apolo,Rio Capibaribe,x,x,x
-Cais do Apolo,Ponto,Ponte,Recife Antigo,Rio Capibaribe,Rio Beberibe,Bacia do Pina,x,x
