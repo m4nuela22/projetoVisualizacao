@@ -131,7 +131,8 @@ function dateSelected(d){
     d3.select("#" + d.id)
     .attr("fill","#A9A9A9");
   }
-  searchOnDatabase();
+  var result = searchOnDatabase();
+  console.log(result);
 }
 
 function searchOnDatabase(){
@@ -146,19 +147,20 @@ function searchOnDatabase(){
   var is2016Marked = anoFiltered.indexOf(2016)!= -1;
 
   if (is2015Marked){
-    results.concat(findRowsByDateTime(csv2015,mesFiltered,diaSemanaFiltered,diaFiltered,horaFiltered));
+    results = results.concat(findRowsByDateTime(csv2015,mesFiltered,diaSemanaFiltered,diaFiltered,horaFiltered));
   }
 
   if(is2016Marked){
-    results.concat(findRowsByDateTime(csv2016,mesFiltered,diaSemanaFiltered,diaFiltered,horaFiltered));
+    results = results.concat(findRowsByDateTime(csv2016,mesFiltered,diaSemanaFiltered,diaFiltered,horaFiltered));
   }
 
   if(!is2015Marked && !is2016Marked){
-    results.concat(findRowsByDateTime(csv2015,mesFiltered,diaSemanaFiltered,diaFiltered,horaFiltered));
-    results.concat(findRowsByDateTime(csv2016,mesFiltered,diaSemanaFiltered,diaFiltered,horaFiltered));
+    results = results.concat(findRowsByDateTime(csv2015,mesFiltered,diaSemanaFiltered,diaFiltered,horaFiltered));
+    results = results.concat(findRowsByDateTime(csv2016,mesFiltered,diaSemanaFiltered,diaFiltered,horaFiltered));
 
   }
 
+  return results;
 
 }
 
@@ -217,6 +219,6 @@ function findRowsByDateTime(database,mesFiltered,diaSemanaFiltered,diaFiltered,h
         }
       }
   }
-  console.log(relevantArray);
+  return relevantArray;
 
 }
