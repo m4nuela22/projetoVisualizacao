@@ -1,25 +1,25 @@
 var width = 500;
 var mainSVG = d3.selectAll("#mainSVG");
 var anoArray = [{id:"a_2015",value:2015,selected:false},{id:"a_2016",value:2016,selected:false}];
-var mesArray = [{id:"m_1",value:"Jan",selected:false},
-                {id:"m_2",value:"Fev",selected:false},
-                {id:"m_3",value:"Mar",selected:false},
-                {id:"m_4",value:"Abr",selected:false},
-                {id:"m_5",value:"Maio",selected:false},
-                {id:"m_6",value:"Junho",selected:false},
-                {id:"m_7",value:"Julho",selected:false},
-                {id:"m_8",value:"Ago",selected:false},
-                {id:"m_9",value:"Set",selected:false},
-                {id:"m_10",value:"Out",selected:false},
-                {id:"m_11",value:"Nov",selected:false},
-                {id:"m_12",value:"Dez",selected:false}];
-var diaSemanaArray = [{id:"ds_1",value:"Seg",selected:false},
-                      {id:"ds_2",value:"Ter",selected:false},
-                      {id:"ds_3",value:"Qua",selected:false},
-                      {id:"ds_4",value:"Qui",selected:false},
-                      {id:"ds_5",value:"Sex",selected:false},
-                      {id:"ds_6",value:"Sab",selected:false},
-                      {id:"ds_0",value:"Dom",selected:false}];
+var mesArray = [{id:"m_1",value:"Jan",selected:false,map:1},
+                {id:"m_2",value:"Fev",selected:false,map:2},
+                {id:"m_3",value:"Mar",selected:false,map:3},
+                {id:"m_4",value:"Abr",selected:false,map:4},
+                {id:"m_5",value:"Maio",selected:false,map:5},
+                {id:"m_6",value:"Junho",selected:false,map:6},
+                {id:"m_7",value:"Julho",selected:false,map:7},
+                {id:"m_8",value:"Ago",selected:false,map:8},
+                {id:"m_9",value:"Set",selected:false,map:9},
+                {id:"m_10",value:"Out",selected:false,map:10},
+                {id:"m_11",value:"Nov",selected:false,map:11},
+                {id:"m_12",value:"Dez",selected:false,map:12}];
+var diaSemanaArray = [{id:"ds_1",value:"Seg",selected:false,map:1},
+                      {id:"ds_2",value:"Ter",selected:false,map:2},
+                      {id:"ds_3",value:"Qua",selected:false,map:3},
+                      {id:"ds_4",value:"Qui",selected:false,map:4},
+                      {id:"ds_5",value:"Sex",selected:false,map:5},
+                      {id:"ds_6",value:"Sab",selected:false,map:6},
+                      {id:"ds_0",value:"Dom",selected:false,map:0}];
 var diaArray = [{id:"d_1",value:1,selected:false},
                 {id:"d_2",value:2,selected:false},
                 {id:"d_3",value:3,selected:false},
@@ -136,31 +136,87 @@ function dateSelected(d){
 
 function searchOnDatabase(){
   var anoFiltered = anoArray.filter(function(d){return d.selected == true;}).map(function(d){return d.value;});
-  var mesFiltered = mesArray.filter(function(d){return d.selected == true;}).map(function(d){return d.value;});
-  var diaSemanaFiltered = diaSemanaArray.filter(function(d){return d.selected == true;}).map(function(d){return d.value;});
+  var mesFiltered = mesArray.filter(function(d){return d.selected == true;}).map(function(d){return d.map;});
+  var diaSemanaFiltered = diaSemanaArray.filter(function(d){return d.selected == true;}).map(function(d){return d.map;});
   var diaFiltered = diaArray.filter(function(d){return d.selected == true;}).map(function(d){return d.value;});
+  var horaFiltered = horaArray.filter(function(d){return d.selected == true;}).map(function(d){return d.value;});
 
-  var result  = [];
+  var results  = [];
+  var is2015Marked = anoFiltered.indexOf(2015) != -1;
+  var is2016Marked = anoFiltered.indexOf(2016)!= -1;
 
-  if (anoFiltered.indexOf(2015) != -1){
-    results.concat(findRowsByDateTime(csv2015,mesFiltered,diaSemanaFiltered,diaFiltered));
+  if (is2015Marked){
+    results.concat(findRowsByDateTime(csv2015,mesFiltered,diaSemanaFiltered,diaFiltered,horaFiltered));
   }
 
-  if(anoFiltered.indexOf(2016)!= -1){
-    results.concat(findRowsByDateTime(csv2016,mesFiltered,diaSemanaFiltered,diaFiltered));
+  if(is2016Marked){
+    results.concat(findRowsByDateTime(csv2016,mesFiltered,diaSemanaFiltered,diaFiltered,horaFiltered));
   }
+
+  if(!is2015Marked && !is2016Marked){
+    results.concat(findRowsByDateTime(csv2015,mesFiltered,diaSemanaFiltered,diaFiltered,horaFiltered));
+    results.concat(findRowsByDateTime(csv2016,mesFiltered,diaSemanaFiltered,diaFiltered,horaFiltered));
+
+  }
+
 
 }
 
-function findRowsByDateTime(database,mesFiltered,diaSemanaFiltered,diaFiltered){
+function checkRelevantRow(tuple,mesFiltered,diaSemanaFiltered,diaFiltered,horaFiltered){
+    var isRelevantMonth = true;
+    var isRelevantDayOfTheWeek = true;
+    var isRelevantDay = true;
+    var isRelevanthour = true;
+
+    if (mesFiltered.length >0){
+      if (mesFiltered.indexOf(tuple.mes) == -1){
+        isRelevantMonth = false;
+      }
+    }
+
+    if(diaSemanaFiltered.length >0){
+      if (diaSemanaFiltered.indexOf(tuple.diaSemana) == -1){
+        isRelevantDayOfTheWeek = false;
+      }
+    }
+
+    if(diaFiltered.length >0){
+      if (diaFiltered.indexOf(tuple.dia) == -1){
+        isRelevantDay = false;
+      }
+    }
+
+    if(horaFiltered.length >0){
+      if (horaFiltered.indexOf(tuple.hora) == -1){
+        isRelevanthour = false
+      }
+    }
+
+    return isRelevantMonth && isRelevantDayOfTheWeek && isRelevantDay && isRelevanthour;
+
+}
+
+
+function findRowsByDateTime(database,mesFiltered,diaSemanaFiltered,diaFiltered,horaFiltered){
+  var relevantArray = []
   for (var i = 0 ; i<database.length; i++){
       var row = database[i];
       var date = row.data;
       var time = row.hora;
 
       if (date != null && date != undefined){
-
+        var d = new Date(date + " " + time);
+        var wd = d.getDay();
+        var day = d.getDate();
+        var month = d.getMonth() + 1;
+        var hour =  d.getHours();
+        var tuple = {"mes":month,"dia":day,"diaSemana":wd,"hora":hour};
+        var relevant = checkRelevantRow(tuple,mesFiltered,diaSemanaFiltered,diaFiltered,horaFiltered);
+        if (relevant){
+          relevantArray.push(row);
+        }
       }
   }
+  console.log(relevantArray);
 
 }
