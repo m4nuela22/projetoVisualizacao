@@ -39,8 +39,9 @@
                   d3.csv("acidentesTransito2016.csv",function(error, dataCSV2016) {
                       if (error) throw error;
                       createRecurrentTimeSelectionWidget(dataCSV2015,dataCSV2016);
+                      //dataCSV2015 = dataCSV2015.slice(0, 5);
                       //addMarkersToMap(dataCSV2015);
-                      //addMarkersToMap(dataCSV2016);
+                      addMarkersToMap(dataCSV2016);
                   });
               });
 
