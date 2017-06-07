@@ -82,21 +82,22 @@ var csv2016;
 function createRecurrentTimeSelectionWidget(dataCSV2015,dataCSV2016){
     csv2015 = dataCSV2015;
     csv2016 = dataCSV2016;
-    createRetanglesLine(10,410,anoArray, 15);
-    createRetanglesLine(10,420,mesArray, 7);
-    createRetanglesLine(10,430,diaSemanaArray,7);
-    createRetanglesLine(10,440,diaArray,5);
-    createRetanglesLine(10,450,horaArray,6);
+    createRetanglesLine(10,30,anoArray, 15);
+    createRetanglesLine(10,45,mesArray, 7);
+    createRetanglesLine(10,60,diaSemanaArray,7);
+    createRetanglesLine(10,75,diaArray,5);
+    createRetanglesLine(10,90,horaArray,6);
 }
 
 function createRetanglesLine(x,y,array,centerTextValue){
-  var totalWidth = 500;
+  var totalWidth = 600;
   var retangleSize = totalWidth/array.length;
-  var height  = 10;
+  var height  = 15;
   mainSVG.selectAll()
   .data(array)
   .enter()
   .append("rect")
+  .attr("class","pointer")
   .attr("id",function(d){return d.id;})
   .attr("x",function(d,i){return x + i*(retangleSize);})
   .attr("y",y)
@@ -112,8 +113,9 @@ function createRetanglesLine(x,y,array,centerTextValue){
   .data(array)
   .enter()
   .append('text').text(function(d){return d.value;})
+      .attr('class','pointer')
       .attr('x', function(d,i){return x + i*(retangleSize) + retangleSize/2 - centerTextValue;})
-      .attr('y', y+9)
+      .attr('y', y+11)
       .attr('fill', 'black')
       .attr("font-size","10px")
       .on("click",dateSelected);

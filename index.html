@@ -4,12 +4,26 @@
          <meta charset="utf-8">
          <title> Acidentes de Trânsito - Recife </title>
          <script src="https://d3js.org/d3.v4.min.js"></script>
-         <script src="recurrentTimeSelectionWidget.js"></script>
-
+         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"
+                integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ=="
+                crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"
+                integrity="sha512-A7vV8IFfih/D732iSSKi20u/ooOfj/AGehOKq0f4vLT1Zr2Y+RX7C+w8A1gaSasGtRUZpF/NZgzSAu4/Gc41Lg=="
+                crossorigin=""></script>
+        <script src="recurrentTimeSelectionWidget.js"></script>
+        <script src="map.js"></script>
+        <style>
+            .pointer {
+              cursor: pointer;
+            }
+        </style>
     </head>
     <body>
+          <div id="mapDiv" style="width: 600px; height: 400px; margin-left: 10px"></div>
+
 
           <script>
+              createMap();
               var margin = {top:10, right:10, bottom:10,left:10};
               var width = screen.width - margin.left - margin.right;
               var height = screen.height - margin.top - margin.bottom;
@@ -25,10 +39,12 @@
                   d3.csv("acidentesTransito2016.csv",function(error, dataCSV2016) {
                       if (error) throw error;
                       createRecurrentTimeSelectionWidget(dataCSV2015,dataCSV2016);
+                      //addMarkersToMap(dataCSV2015);
+                      //addMarkersToMap(dataCSV2016);
                   });
               });
 
-
           </script>
+
     </body>
 </html>
