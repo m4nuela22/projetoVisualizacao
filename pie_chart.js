@@ -52,6 +52,35 @@ function makePie(data){
 		.enter().append("g")
 		.attr("class", "arc")
 		.attr("transform", "translate(" + (770) + "," + height/2+ ")")
+		.on("mouseover", function (d) {
+			d3.select("#tooltip")
+			.style("left", d3.event.pageX + "px")
+			.style("top", d3.event.pageY + "px")
+			.style("opacity", 1)
+			.select("#label")
+			.text(d.data.label);
+
+		d3.select("#tooltip")
+			.style("left", d3.event.pageX + "px")
+			.style("top", d3.event.pageY + "px")
+			.style("opacity", 1)	
+			.select("#value")
+			.text(d.value);
+		
+		d3.select("#tooltip")
+			.style("left", d3.event.pageX + "px")
+			.style("top", d3.event.pageY + "px")
+			.style("opacity", 1)	
+			.select("#percentage")
+			.text(Math.round(d.value/total*100));
+
+		})
+		.on("mouseout", function () {
+			// Hide the tooltip
+			d3.select("#tooltip")
+			.style("opacity", 0);;
+		});
+
 
 	g.append("path")
 		.attr("d", arc)
