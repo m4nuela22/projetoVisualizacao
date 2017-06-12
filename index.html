@@ -13,6 +13,7 @@
         <script src="/js/leaflet-0.7.2/leaflet.ajax.min.js"></script>
         <script src="recurrentTimeSelectionWidget.js"></script>
         <script src="map.js"></script>
+        <script src="histograma.js"></script>
         <style>
             .pointer {
               cursor: pointer;
@@ -51,6 +52,7 @@
                       dataCSV2015 = dataCSV2015.slice(0,100);
                       addMarkersToMap(dataCSV2015);
                       //addMarkersToMap(dataCSV2016);
+                      histogram(dataCSV2015);
                   });
               });
 
