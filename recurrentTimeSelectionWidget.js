@@ -83,7 +83,7 @@ function createRecurrentTimeSelectionWidget(dataCSV2015,dataCSV2016){
     csv2015 = dataCSV2015;
     csv2016 = dataCSV2016;
     createRetanglesLine(10,30,anoArray, 15);
-    createRetanglesLine(10,45,mesArray, 7);
+    createRetanglesLine(10,45,mesArray, 12);
     createRetanglesLine(10,60,diaSemanaArray,7);
     createRetanglesLine(10,75,diaArray,5);
     createRetanglesLine(10,90,horaArray,6);
@@ -116,7 +116,7 @@ function createRetanglesLine(x,y,array,centerTextValue){
       .attr('class','pointer')
       .attr('x', function(d,i){return x + i*(retangleSize) + retangleSize/2 - centerTextValue;})
       .attr('y', y+11)
-      .attr('fill', 'black')
+      .style('fill', 'black')
       .attr("font-size","10px")
       .on("click",dateSelected);
 }

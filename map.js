@@ -32,6 +32,19 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
 			'Imagery © <a href="http://mapbox.com">Mapbox</a>',
 		id: 'mapbox.streets'
 	}).addTo(mymap);
+/*var district_boundary = new L.geoJson();
+district_boundary.addTo(mymap);
+
+$.ajax({
+dataType: "json",
+url: "bairros.geojson",
+success: function(data) {
+    $(data.features).each(function(key, data) {
+        district_boundary.addData(data);
+    });
+}
+}).error(function() {});
+*/
 }
 
 function addMarkersToMap(array){
