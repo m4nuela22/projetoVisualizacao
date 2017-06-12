@@ -47,7 +47,8 @@ function histogram (array) {
 	xAxisGroup.call(xAxis);
 	var yAxisGroup = mySVG.append("g")
 			.attr("class","yAxis")
-			.attr("transform","translate(30,18)");
+			.attr("transform","translate(30,18)")
+			.attr("stroke","black");
 	var yAxis = d3.axisLeft(yScale);
 	yAxisGroup.call(yAxis);
 
