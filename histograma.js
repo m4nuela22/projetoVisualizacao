@@ -85,5 +85,5 @@ function histogram (array) {
 	    .text( function (d) { return d.nome; })
 	    .attr("font-family", "sans-serif")
 		.attr("font-size", "10px")
-	    .attr("fill", "black");
+	    .style("fill", "black");
 }
