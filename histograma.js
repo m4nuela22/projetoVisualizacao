@@ -1,9 +1,9 @@
 function histogram (array) {
-	
+
 	// Setando dimensoes e margens do SVG
-	var margin = {top: 3, right: 2, bottom: 5, left: 650};
-	var width = 1100 - margin.left - margin.right;
-	var height = 500 - margin.top - margin.bottom;	
+	var margin = {top: 3, right: 2, bottom: 5, left: 330};
+	var width = 160 - margin.left - margin.right;
+	var height = 180 - margin.top - margin.bottom;	
 
 	// Criando escalas
 	var xScale = d3.scaleLinear().domain([0,100]).range([0,width]);
@@ -18,6 +18,9 @@ function histogram (array) {
 	var mySVG = d3.select("body").append("svg")
 			.attr("width", width + margin.left + margin.right + 40)
 			.attr("height", height + margin.top + margin.bottom + 30)
+			.style("overflow", "visible")
+			.style("position", "absolute")
+			.style("top", 0)
 			.append("g")
 			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -41,7 +44,7 @@ function histogram (array) {
 	// Criando eixos
 	var xAxisGroup = mySVG.append("g")
 			.attr("class","xAxis")
-			.attr("transform","translate(30,"+(height-margin.top+21)+")");
+			.attr("transform","translate(31,"+(height-margin.top+21)+") scale(-1,1)");
 	var xAxis = d3.axisBottom(xScale)
 			.ticks(0);
 	xAxisGroup.call(xAxis);
@@ -67,12 +70,12 @@ function histogram (array) {
 	    .attr("width", 50)
 	    .attr("height", function(d) {return zScale(d.vitimas/10);})
 	    .attr("fill", function(d) {
-      if (d.nome=="Sem Vítima") {
-        return "blue";
-      } else {
-        return "red";
-      }
-    });
+      		if (d.nome=="Sem Vítima") {
+        		return "blue";
+      		} else {
+        		return "red";
+      		}
+    	});
 
 	// Colocando compainhas 
 	var text = mySVG.selectAll("circle")
@@ -81,7 +84,7 @@ function histogram (array) {
 		.append("text");
 
 	var labelTexts = text
-		.attr("x", function(d) {return zScale((d.vitimas+500)/10); })
+		.attr("x", function(d) {return zScale((d.vitimas+1400)/10); })
 	    .attr("y", function(d) {return height + margin.top + margin.bottom + 20;})
 	    .text( function (d) { return d.nome; })
 	    .attr("font-family", "sans-serif")
