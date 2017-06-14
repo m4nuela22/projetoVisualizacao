@@ -1,35 +1,10 @@
-<<<<<<< Updated upstream
-$(document).ready(function() {
-    $.ajax({
-        type: "GET",
-        url: "acidentesTransito2015.csv",
-        dataType: "text",
-
-        success: function(data) {parseData(data);}
-     });
-});
-
-=======
->>>>>>> Stashed changes
-var dataset;
-var data;
-var acidentes_auto = 0;
-var acidentes_moto = 0;
-var acidentes_ciclom = 0;
-var acidentes_ciclista = 0;
-var acidentes_pedestre = 0;
-var acidentes_onibus = 0;
-var acidentes_caminhao = 0;
-var acidentes_viatura = 0;
-var acidentes_outros = 0;
-var total = 0;
-
-<<<<<<< Updated upstream
 function makePie(data){
-  clearEverything(mainSVG);
-=======
-function makeFilling(data){
->>>>>>> Stashed changes
+	clearEverything(mainSVG);
+}
+
+function makeFilling(data,total){
+	clearEverything(mainSVG);
+
 	var width = 300,
 		height = 300,
 		radius = Math.min(width, height) / 2;
@@ -83,7 +58,6 @@ function makeFilling(data){
 			.style("opacity", 0);;
 		});
 
-
 	g.append("path")
     .attr("class","remove")
 		.attr("d", arc)
@@ -103,28 +77,22 @@ function makeFilling(data){
 			});
 	}
 
-<<<<<<< Updated upstream
-function processData(dataset){
-  acidentes_auto = 0;
-  acidentes_moto = 0;
-  acidentes_ciclom = 0;
-  acidentes_ciclista = 0;
-  acidentes_pedestre = 0;
-  acidentes_onibus = 0;
-  acidentes_caminhao = 0;
-  acidentes_viatura = 0;
-  acidentes_outros = 0;
-  total = 0;
-	for (i=0;i<dataset.length;i++)
-=======
 function bakePie(dataset){
+	var acidentes_auto = 0;
+	var acidentes_moto = 0;
+	var acidentes_ciclom = 0;
+	var acidentes_ciclista = 0;
+	var acidentes_pedestre = 0;
+	var acidentes_onibus = 0;
+	var acidentes_caminhao = 0;
+	var acidentes_viatura = 0;
+	var acidentes_outros = 0;
+	var total = 0;
+
 	for (i=0;i<Object.keys(dataset).length;i++)
->>>>>>> Stashed changes
-	{
-		
+	{		
 		if (dataset[i].auto!="") {
 			acidentes_auto += Number(dataset[i].auto);
-
 		}
 		if (dataset[i].moto!="") {
 			acidentes_moto += Number(dataset[i].moto);
@@ -162,22 +130,10 @@ function bakePie(dataset){
 			{"label":"Viaturas","value":acidentes_viatura},
 			{"label":"Outros","value":acidentes_outros}];
 
-	console.log(data);
 	total = acidentes_auto+acidentes_moto+acidentes_ciclom+acidentes_ciclista+acidentes_pedestre+acidentes_onibus+acidentes_caminhao+acidentes_viatura+acidentes_outros;
 
-<<<<<<< Updated upstream
-            var tarr = [];
-            for (var j=0; j<headers.length; j++) {
-                tarr.push(headers[j]+":"+data[j]);
-            }
-            lines.push(tarr);
-        }
-    }
+	makeFilling(data,total);
 
-    processData(lines);
-=======
-	makeFilling(data);
->>>>>>> Stashed changes
 }
 
 function clearEverything(mainSVG){
