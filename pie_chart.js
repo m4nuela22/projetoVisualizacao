@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 $(document).ready(function() {
     $.ajax({
         type: "GET",
@@ -8,6 +9,8 @@ $(document).ready(function() {
      });
 });
 
+=======
+>>>>>>> Stashed changes
 var dataset;
 var data;
 var acidentes_auto = 0;
@@ -21,8 +24,12 @@ var acidentes_viatura = 0;
 var acidentes_outros = 0;
 var total = 0;
 
+<<<<<<< Updated upstream
 function makePie(data){
   clearEverything(mainSVG);
+=======
+function makeFilling(data){
+>>>>>>> Stashed changes
 	var width = 300,
 		height = 300,
 		radius = Math.min(width, height) / 2;
@@ -88,9 +95,15 @@ function makePie(data){
 		.attr("dy", ".35em")
 		.text(function(d) {
 			var x = Math.round(d.data.value/total * 100);
-			return " "+ x +"%"; });
+			var retorno;
+			if (x > total*0.02){
+				retorno = " "+ x +"%";
+			}
+			return retorno;
+			});
 	}
 
+<<<<<<< Updated upstream
 function processData(dataset){
   acidentes_auto = 0;
   acidentes_moto = 0;
@@ -103,35 +116,42 @@ function processData(dataset){
   acidentes_outros = 0;
   total = 0;
 	for (i=0;i<dataset.length;i++)
+=======
+function bakePie(dataset){
+	for (i=0;i<Object.keys(dataset).length;i++)
+>>>>>>> Stashed changes
 	{
-		if (dataset[i][11]=="auto:1") {
-			acidentes_auto +=1;
+		
+		if (dataset[i].auto!="") {
+			acidentes_auto += Number(dataset[i].auto);
+
 		}
-		if (dataset[i][12]=="moto:1") {
-			acidentes_moto +=1;
+		if (dataset[i].moto!="") {
+			acidentes_moto += Number(dataset[i].moto);
 		}
-		if(dataset[i][13]=="ciclom:1") {
-			acidentes_ciclom +=1;
+		if(dataset[i].ciclom!="") {
+			acidentes_ciclom += Number(dataset[i].ciclom);
 		}
-		if(dataset[i][14]=="ciclista:1") {
-			acidentes_ciclista +=1;
+		if(dataset[i].ciclista!="") {
+			acidentes_ciclista += Number(dataset[i].ciclista);
 		}
-		if(dataset[i][15]=="pedestre:1") {
-			acidentes_pedestre +=1;
+		if(dataset[i].pedestre!="") {
+			acidentes_pedestre += Number(dataset[i].pedestre);
 		}
-		if(dataset[i][16]=="onibus:1") {
-			acidentes_onibus +=1;
+		if(dataset[i].onibus!="") {
+			acidentes_onibus += Number(dataset[i].onibus);
 		}
-		if(dataset[i][17]=="caminhao:1") {
-			acidentes_caminhao +=1;
+		if(dataset[i].caminhao!="") {
+			acidentes_caminhao += Number(dataset[i].caminhao);
 		}
-		if(dataset[i][18]=="viatura:1") {
-			acidentes_viatura +=1;
+		if(dataset[i].viatura!="") {
+			acidentes_viatura += Number(dataset[i].viatura);
 		}
-		if(dataset[i][19]=="outros:1") {
-			acidentes_outros +=1;
+		if(dataset[i].outros!="") {
+			acidentes_outros += Number(dataset[i].outros);
 		}
 	}
+	
 	data = [{"label":"Carros","value":acidentes_auto},
 			{"label":"Motos","value":acidentes_moto},
 			{"label":"Ciclomotores","value":acidentes_ciclom},
@@ -142,19 +162,10 @@ function processData(dataset){
 			{"label":"Viaturas","value":acidentes_viatura},
 			{"label":"Outros","value":acidentes_outros}];
 
+	console.log(data);
 	total = acidentes_auto+acidentes_moto+acidentes_ciclom+acidentes_ciclista+acidentes_pedestre+acidentes_onibus+acidentes_caminhao+acidentes_viatura+acidentes_outros;
-	makePie(data);
-}
 
-function parseData(allText) {
-    var allTextLines = allText.split(/\r\n|\n/);
-    var headers = allTextLines[0].split(',');
-    var lines = [];
-
-    for (var i=1; i<allTextLines.length; i++) {
-        var data = allTextLines[i].split(',');
-        if (data.length == headers.length) {
-
+<<<<<<< Updated upstream
             var tarr = [];
             for (var j=0; j<headers.length; j++) {
                 tarr.push(headers[j]+":"+data[j]);
@@ -164,6 +175,9 @@ function parseData(allText) {
     }
 
     processData(lines);
+=======
+	makeFilling(data);
+>>>>>>> Stashed changes
 }
 
 function clearEverything(mainSVG){

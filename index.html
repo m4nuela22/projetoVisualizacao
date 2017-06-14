@@ -14,6 +14,7 @@
         <script src="recurrentTimeSelectionWidget.js"></script>
         <script src="map.js"></script>
         <script src="histograma.js"></script>
+        <script src="pie_chart.js"></script>
         <style>
             .pointer {
               cursor: pointer;
@@ -54,6 +55,8 @@
                       addMarkersToMap(dataCSV2015);
                       //addMarkersToMap(dataCSV2016);
                       histogram(dataCSV2015);
+                      bakePie(dataCSV2015);
+
                   });
               });
 
@@ -61,12 +64,16 @@
                 var newData = this.selectedList;
                 //histogram(newData);
                 //addMarkersToMap(newData);
+<<<<<<< Updated upstream
                 processData(newData);
+=======
+                bakePie(newData);
+>>>>>>> Stashed changes
               });
 
           </script>
 
-          <script src="pie_chart.js"></script>
+          
 
     </body>
 </html>
