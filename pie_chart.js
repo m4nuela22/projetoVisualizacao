@@ -3,12 +3,13 @@ $(document).ready(function() {
         type: "GET",
         url: "acidentesTransito2015.csv",
         dataType: "text",
-        
+
         success: function(data) {parseData(data);}
      });
 });
 
 var dataset;
+var data;
 var acidentes_auto = 0;
 var acidentes_moto = 0;
 var acidentes_ciclom = 0;
@@ -19,9 +20,9 @@ var acidentes_caminhao = 0;
 var acidentes_viatura = 0;
 var acidentes_outros = 0;
 var total = 0;
-var data;
 
 function makePie(data){
+  clearEverything(mainSVG);
 	var width = 300,
 		height = 300,
 		radius = Math.min(width, height) / 2;
@@ -40,7 +41,7 @@ function makePie(data){
 	var pie = d3.pie()
 		.sort(null)
 		.value(function(d) { return d.value; });
-		
+
 	var g = mainSVG.selectAll(".arc")
 		.data(pie(data))
 		.enter().append("g")
@@ -57,14 +58,14 @@ function makePie(data){
 		d3.select("#tooltip")
 			.style("left", d3.event.pageX + "px")
 			.style("top", d3.event.pageY + "px")
-			.style("opacity", 1)	
+			.style("opacity", 1)
 			.select("#value")
 			.text(d.value);
-		
+
 		d3.select("#tooltip")
 			.style("left", d3.event.pageX + "px")
 			.style("top", d3.event.pageY + "px")
-			.style("opacity", 1)	
+			.style("opacity", 1)
 			.select("#percentage")
 			.text(Math.round(d.value/total*100));
 
@@ -77,18 +78,30 @@ function makePie(data){
 
 
 	g.append("path")
+    .attr("class","remove")
 		.attr("d", arc)
 		.style("fill", function(d) { return color(d.data.value); });
 
 	g.append("text")
+    .attr("class","remove")
 		.attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
 		.attr("dy", ".35em")
-		.text(function(d) { 
+		.text(function(d) {
 			var x = Math.round(d.data.value/total * 100);
 			return " "+ x +"%"; });
 	}
 
 function processData(dataset){
+  acidentes_auto = 0;
+  acidentes_moto = 0;
+  acidentes_ciclom = 0;
+  acidentes_ciclista = 0;
+  acidentes_pedestre = 0;
+  acidentes_onibus = 0;
+  acidentes_caminhao = 0;
+  acidentes_viatura = 0;
+  acidentes_outros = 0;
+  total = 0;
 	for (i=0;i<dataset.length;i++)
 	{
 		if (dataset[i][11]=="auto:1") {
@@ -149,7 +162,11 @@ function parseData(allText) {
             lines.push(tarr);
         }
     }
-    
+
     processData(lines);
 }
 
+function clearEverything(mainSVG){
+	mainSVG.selectAll(".arc").remove();
+	mainSVG.selectAll(".remove").remove();
+}
