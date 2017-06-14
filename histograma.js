@@ -3,11 +3,11 @@ function histogram (array) {
 	// Setando dimensoes e margens do SVG
 	var margin = {top: 3, right: 2, bottom: 5, left: 330};
 	var width = 160 - margin.left - margin.right;
-	var height = 180 - margin.top - margin.bottom;		
+	var height = 180 - margin.top - margin.bottom;
 
 	// Criando SVG
 	var myUpdate = d3.select("body")
-		.selectAll("svg")	
+		.selectAll("svg")
 
 	var mySVG = d3.select("body").append("svg")
 			.attr("width", width + margin.left + margin.right + 40)
@@ -18,9 +18,11 @@ function histogram (array) {
 			.append("g")
 			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+	clearEverything(mySVG);
+
 	// Contando número c/s vítimas
 	var semVitima = 0;
-	var comVitima = 0;	
+	var comVitima = 0;
 	for (var i=0; i < array.length ; ++i) {
 		tipo = array[i].tipo;
 	  	if (tipo=="COM VÍTIMA") {
@@ -28,7 +30,7 @@ function histogram (array) {
 	  	} else {
 	    	semVitima = semVitima + 1;
 	  	}
-	}	
+	}
 	console.log(comVitima);
 	console.log(semVitima);
 
@@ -42,13 +44,13 @@ function histogram (array) {
 
 	// Criando eixos
 	var xAxisGroup = mySVG.append("g")
-			.attr("class","xAxis")
+			.attr("class","axis")
 			.attr("transform","translate(30,"+(height-margin.top+21)+")");
 	var xAxis = d3.axisBottom(xScale)
 			.ticks(0);
 	xAxisGroup.call(xAxis);
 	var yAxisGroup = mySVG.append("g")
-			.attr("class","yAxis")
+			.attr("class","axis")
 			.attr("transform","translate(30,18)")
 			.attr("stroke","black");
 	var yAxis = d3.axisLeft(yScale);
@@ -78,7 +80,7 @@ function histogram (array) {
       		}
     	});
 
-	// Colocando textos 
+	// Colocando textos
 	var text = mySVG.selectAll("circle")
 		.data(vitimas)
 		.enter()
@@ -98,4 +100,9 @@ function histogram (array) {
 	    .attr("font-family", "sans-serif")
 		.style("font-size", "9px")
 	    .style("fill", "black");
+}
+
+function clearEverything(mySVG){
+	mySVG.selectAll("rect").remove();
+	mySVG.selectAll(".axis").remove();
 }

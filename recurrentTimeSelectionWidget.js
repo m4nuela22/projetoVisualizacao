@@ -1,3 +1,4 @@
+var myDispath = d3.dispatch("selectionChanged");
 var width = 500;
 var mainSVG = d3.selectAll("#mainSVG");
 var anoArray = [{id:"a_2015",value:2015,selected:false},{id:"a_2016",value:2016,selected:false}];
@@ -134,6 +135,7 @@ function dateSelected(d){
     .attr("fill","#A9A9A9");
   }
   var result = searchOnDatabase();
+  myDispath.call("selectionChanged",{who:"map",selectedList:result});
   console.log(result);
 }
 

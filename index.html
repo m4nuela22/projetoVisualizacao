@@ -33,6 +33,7 @@
           </div>
 
           <script>
+             var myDispath = d3.dispatch("selectionChanged");
               createMap();
               var margin = {top:10, right:10, bottom:10,left:10};
               var width = screen.width - margin.left - margin.right;
@@ -54,6 +55,13 @@
                       //addMarkersToMap(dataCSV2016);
                       histogram(dataCSV2015);
                   });
+              });
+
+              myDispath.on("selectionChanged",function(){
+                var newData = this.selectedList;
+                histogram(newData);
+                //addMarkersToMap(newData);
+                //makePie(newData);
               });
 
           </script>
