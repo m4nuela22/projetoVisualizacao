@@ -2,15 +2,17 @@ function makePie(data){
 	clearEverything(mainSVG);
 }
 
-function makeFilling(data,total){
-	clearEverything(mainSVG);
+function returnTotal(data){
 
+}
+
+function makeFilling(data,total){
 	var width = 300,
 		height = 300,
 		radius = Math.min(width, height) / 2;
 
 	var color = d3.scaleOrdinal()
-		.range(["#98abc5", "#8a89a6", "#7b6888"]);
+		.range(["#a6cee3","#1f78b4","#b2df8a","#33a02c","#fb9a99","#e31a1c","#fdbf6f","#ff7f00","#cab2d6"]);
 
 	var arc = d3.arc()
 		.outerRadius(radius - 10)
@@ -55,29 +57,35 @@ function makeFilling(data,total){
 		.on("mouseout", function () {
 			// Hide the tooltip
 			d3.select("#tooltip")
-			.style("opacity", 0);;
+			.style("opacity", 0);
 		});
 
 	g.append("path")
-    .attr("class","remove")
+    	.attr("class","path")
 		.attr("d", arc)
-		.style("fill", function(d) { return color(d.data.value); });
+		.style("fill", function(d) { return color(d.data.label); });
 
 	g.append("text")
-    .attr("class","remove")
+		.attr("class","text pointer")
+		
 		.attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
 		.attr("dy", ".35em")
 		.text(function(d) {
-			var x = Math.round(d.data.value/total * 100);
+			var x = Math.round((d.data.value)/total * 100);
 			var retorno;
-			if (x > total*0.02){
+
+			if (x > 2){
 				retorno = " "+ x +"%";
 			}
+
 			return retorno;
-			});
-	}
+		});
+
+}
 
 function bakePie(dataset){
+	clearEverything(mainSVG);
+
 	var acidentes_auto = 0;
 	var acidentes_moto = 0;
 	var acidentes_ciclom = 0;
@@ -89,8 +97,8 @@ function bakePie(dataset){
 	var acidentes_outros = 0;
 	var total = 0;
 
-	for (i=0;i<Object.keys(dataset).length;i++)
-	{		
+	for (i=0;i<Object.keys(dataset).length-1;i++)
+	{	
 		if (dataset[i].auto!="") {
 			acidentes_auto += Number(dataset[i].auto);
 		}
@@ -138,5 +146,7 @@ function bakePie(dataset){
 
 function clearEverything(mainSVG){
 	mainSVG.selectAll(".arc").remove();
+	mainSVG.selectAll(".path").remove();
+	mainSVG.selectAll(".text").remove();
 	mainSVG.selectAll(".remove").remove();
 }
