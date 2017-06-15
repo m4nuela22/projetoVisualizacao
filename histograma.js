@@ -35,13 +35,13 @@ function histogram (array) {
 	// Criando eixos
 	var xAxisGroup = mainSVG.append("g")
 			.attr("class","axis")
-			.attr("transform","translate(649,"+(height-margin.top+21)+")");
+			.attr("transform","translate(659,"+(height-margin.top+21)+")");
 	var xAxis = d3.axisBottom(xScale)
 			.ticks(0);
 	xAxisGroup.call(xAxis);
 	var yAxisGroup = mainSVG.append("g")
 			.attr("class","axis")
-			.attr("transform","translate(649,18)")
+			.attr("transform","translate(659,18)")
 			.attr("stroke","black");
 	var yAxis = d3.axisLeft(yScale);
 	yAxisGroup.call(yAxis);
@@ -54,9 +54,9 @@ function histogram (array) {
 	    .attr("transform","translate(0," + (height-margin.top+21)+ ") scale(1,-1)")
 	    .attr("x", function(d){
 	    	if (d.nome=="Sem Vítima") {
-        		return 659;
+        		return 669;
       		} else {
-        		return 718;
+        		return 728;
       		}
 	    })
 	    .attr("y", 0)
@@ -80,9 +80,9 @@ function histogram (array) {
 		.attr("transform","translate(0,0)")
 		.attr("x", function(d) {
 			if (d.nome=="Sem Vítima") {
-        		return 659;
+        		return 669;
       		} else {
-        		return 718;
+        		return 728;
       		}
 	    })
 	    .attr("y", function(d) {return height + margin.top + margin.bottom + 20;})

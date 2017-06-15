@@ -101,7 +101,7 @@ function createRetanglesLine(x,y,array,centerTextValue){
   .attr("class","pointer")
   .attr("id",function(d){return d.id;})
   .attr("x",function(d,i){return x + i*(retangleSize);})
-  .attr("y",y)
+  .attr("y",y+400)
   .attr("width",retangleSize)
   .attr("height",height)
   .attr("fill","white")
@@ -116,7 +116,7 @@ function createRetanglesLine(x,y,array,centerTextValue){
   .append('text').text(function(d){return d.value;})
       .attr('class','pointer')
       .attr('x', function(d,i){return x + i*(retangleSize) + retangleSize/2 - centerTextValue;})
-      .attr('y', y+11)
+      .attr('y', y+11+400)
       .style('fill', 'black')
       .attr("font-size","10px")
       .on("click",dateSelected);

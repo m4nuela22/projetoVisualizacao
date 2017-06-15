@@ -30,7 +30,7 @@ function makeFilling(data,total){
 		.data(pie(data))
 		.enter().append("g")
 		.attr("class", "arc")
-		.attr("transform", "translate(" + (770) + "," + height/2+ ")")
+		.attr("transform", "translate(" + (770) + "," + (height+800)/2+ ")")
 		.on("mouseover", function (d) {
 			d3.select("#tooltip")
 			.style("left", d3.event.pageX + "px")
