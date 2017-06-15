@@ -67,14 +67,13 @@ function makeFilling(data,total){
 
 	g.append("text")
 		.attr("class","text pointer")
-		
 		.attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
 		.attr("dy", ".35em")
 		.text(function(d) {
 			var x = Math.round((d.data.value)/total * 100);
 			var retorno;
 			console.log("d.data",d.data);
-			
+
 			if (x > 2){
 				retorno = " "+ x +"%";
 			}
@@ -99,36 +98,36 @@ function bakePie(dataset){
 	var total = 0;
 
 	for (i=0;i<Object.keys(dataset).length-1;i++)
-	{	
+	{
 		if (dataset[i].auto!="") {
-			acidentes_auto += Number(dataset[i].auto);
+			acidentes_auto += convertToNumber(dataset[i].auto);
 		}
 		if (dataset[i].moto!="") {
-			acidentes_moto += Number(dataset[i].moto);
+			acidentes_moto += convertToNumber(dataset[i].moto);
 		}
 		if(dataset[i].ciclom!="") {
-			acidentes_ciclom += Number(dataset[i].ciclom);
+			acidentes_ciclom += convertToNumber(dataset[i].ciclom);
 		}
 		if(dataset[i].ciclista!="") {
-			acidentes_ciclista += Number(dataset[i].ciclista);
+			acidentes_ciclista += convertToNumber(dataset[i].ciclista);
 		}
 		if(dataset[i].pedestre!="") {
-			acidentes_pedestre += Number(dataset[i].pedestre);
+			acidentes_pedestre += convertToNumber(dataset[i].pedestre);
 		}
 		if(dataset[i].onibus!="") {
-			acidentes_onibus += Number(dataset[i].onibus);
+			acidentes_onibus += convertToNumber(dataset[i].onibus);
 		}
 		if(dataset[i].caminhao!="") {
-			acidentes_caminhao += Number(dataset[i].caminhao);
+			acidentes_caminhao += convertToNumber(dataset[i].caminhao);
 		}
 		if(dataset[i].viatura!="") {
-			acidentes_viatura += Number(dataset[i].viatura);
+			acidentes_viatura += convertToNumber(dataset[i].viatura);
 		}
 		if(dataset[i].outros!="") {
-			acidentes_outros += Number(dataset[i].outros);
+			acidentes_outros += convertToNumber(dataset[i].outros);
 		}
 	}
-	
+
 	data = [{"label":"Carros","value":acidentes_auto},
 			{"label":"Motos","value":acidentes_moto},
 			{"label":"Ciclomotores","value":acidentes_ciclom},
@@ -143,6 +142,15 @@ function bakePie(dataset){
 
 	makeFilling(data,total);
 
+}
+
+function convertToNumber(value){
+  result = 0;
+  var convertedValue = Number(value);
+  if (!isNaN(convertedValue)){
+    result = convertedValue;
+  }
+  return result;
 }
 
 function clearEverything(mainSVG){

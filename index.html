@@ -17,7 +17,7 @@
         <script src="pie_chart.js"></script>
 
          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-         
+
          <link rel="stylesheet" type="text/css" href="pie_chart.css">
          <link rel="stylesheet" type="text/css" href="index.css">
 
@@ -56,16 +56,16 @@
                       //addMarkersToMap(dataCSV2016);
                       histogram(dataCSV2015);
                       bakePie(dataCSV2015);
-                      
+
                   });
               });
 
               myDispath.on("selectionChanged",function(){
                 var newData = this.selectedList;
-                
+
                 //histogram(newData);
                 //addMarkersToMap(newData);
-                bakePie(newData);                
+                bakePie(newData);
               });
 
           </script>

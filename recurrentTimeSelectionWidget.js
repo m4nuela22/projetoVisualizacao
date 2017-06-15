@@ -1,6 +1,7 @@
 var myDispath = d3.dispatch("selectionChanged");
 var width = 500;
 var mainSVG = d3.selectAll("#mainSVG");
+var numberOfSelections = 0;
 var anoArray = [{id:"a_2015",value:2015,selected:false},{id:"a_2016",value:2016,selected:false}];
 var mesArray = [{id:"m_1",value:"Jan",selected:false,map:1},
                 {id:"m_2",value:"Fev",selected:false,map:2},
@@ -128,10 +129,12 @@ function dateSelected(d){
     d.selected = false;
     d3.select("#" + d.id)
     .attr("fill","white");
+    numberOfSelections -= 1;
   }else{
     d.selected = true;
     d3.select("#" + d.id)
     .attr("fill","#A9A9A9");
+    numberOfSelections += 1;
   }
   var result = searchOnDatabase();
   myDispath.call("selectionChanged",{who:"map",selectedList:result});
@@ -148,20 +151,24 @@ function searchOnDatabase(){
   var is2015Marked = anoFiltered.indexOf(2015) != -1;
   var is2016Marked = anoFiltered.indexOf(2016)!= -1;
 
-  if (is2015Marked){
-    results = results.concat(findRowsByDateTime(csv2015,mesFiltered,diaSemanaFiltered,diaFiltered,horaFiltered));
+  if (numberOfSelections == 0){
+    results = csv2015.concat(csv2016);
+  }else{
+    if (is2015Marked){
+      results = results.concat(findRowsByDateTime(csv2015,mesFiltered,diaSemanaFiltered,diaFiltered,horaFiltered));
+    }
+
+    if(is2016Marked){
+      results = results.concat(findRowsByDateTime(csv2016,mesFiltered,diaSemanaFiltered,diaFiltered,horaFiltered));
+    }
+
+    if(!is2015Marked && !is2016Marked){
+      results = results.concat(findRowsByDateTime(csv2015,mesFiltered,diaSemanaFiltered,diaFiltered,horaFiltered));
+      results = results.concat(findRowsByDateTime(csv2016,mesFiltered,diaSemanaFiltered,diaFiltered,horaFiltered));
+
+    }
   }
 
-  if(is2016Marked){
-    results = results.concat(findRowsByDateTime(csv2016,mesFiltered,diaSemanaFiltered,diaFiltered,horaFiltered));
-  }
-
-  if(!is2015Marked && !is2016Marked){
-    results = results.concat(findRowsByDateTime(csv2015,mesFiltered,diaSemanaFiltered,diaFiltered,horaFiltered));
-    results = results.concat(findRowsByDateTime(csv2016,mesFiltered,diaSemanaFiltered,diaFiltered,horaFiltered));
-
-  }
-  
   return results;
 
 }
