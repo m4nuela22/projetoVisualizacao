@@ -5,20 +5,12 @@ function histogram (array) {
 	var width = 160 - margin.left - margin.right;
 	var height = 180 - margin.top - margin.bottom;
 
-	// Criando SVG
-	var myUpdate = d3.select("body")
-		.selectAll("svg")
+	// Modificando SVG
+	mainSVG
+		.style("position", "absolute")
+		.style("top", "0px");
 
-	var mySVG = d3.select("body").append("svg")
-			.attr("width", width + margin.left + margin.right + 40)
-			.attr("height", height + margin.top + margin.bottom + 30)
-			.style("overflow", "visible")
-			.style("position", "absolute")
-			.style("top", 0)
-			.append("g")
-			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-	clearEverything(mySVG);
+	//clearEverything(mySVG);
 
 	// Contando número c/s vítimas
 	var semVitima = 0;
@@ -31,8 +23,6 @@ function histogram (array) {
 	    	semVitima = semVitima + 1;
 	  	}
 	}
-	console.log(comVitima);
-	console.log(semVitima);
 
 	// Criando escalas
 	var xScale = d3.scaleLinear().domain([0,100]).range([0,130]);
@@ -43,30 +33,30 @@ function histogram (array) {
 	var vitimas = [{nome: "Sem Vítima", vitimas: semVitima}, {nome: "Com Vítima", vitimas: comVitima}];
 
 	// Criando eixos
-	var xAxisGroup = mySVG.append("g")
+	var xAxisGroup = mainSVG.append("g")
 			.attr("class","axis")
-			.attr("transform","translate(30,"+(height-margin.top+21)+")");
+			.attr("transform","translate(649,"+(height-margin.top+21)+")");
 	var xAxis = d3.axisBottom(xScale)
 			.ticks(0);
 	xAxisGroup.call(xAxis);
-	var yAxisGroup = mySVG.append("g")
+	var yAxisGroup = mainSVG.append("g")
 			.attr("class","axis")
-			.attr("transform","translate(30,18)")
+			.attr("transform","translate(649,18)")
 			.attr("stroke","black");
 	var yAxis = d3.axisLeft(yScale);
 	yAxisGroup.call(yAxis);
 
 	// Criando histograma
-	mySVG
-		.selectAll("rect")
+	mainSVG
+		.selectAll("ellipse")
 	    .data(vitimas)
 	    .enter().append("rect")
-	    .attr("transform","translate(30," + (height-margin.top+21)+ ") scale(1,-1)")
+	    .attr("transform","translate(0," + (height-margin.top+21)+ ") scale(1,-1)")
 	    .attr("x", function(d){
 	    	if (d.nome=="Sem Vítima") {
-        		return 10;
+        		return 659;
       		} else {
-        		return 69;
+        		return 718;
       		}
 	    })
 	    .attr("y", 0)
@@ -81,18 +71,18 @@ function histogram (array) {
     	});
 
 	// Colocando textos
-	var text = mySVG.selectAll("circle")
+	var text = mainSVG.selectAll("circle")
 		.data(vitimas)
 		.enter()
 		.append("text");
 
 	var labelTexts = text
-		.attr("transform","translate(30,0)")
+		.attr("transform","translate(0,0)")
 		.attr("x", function(d) {
 			if (d.nome=="Sem Vítima") {
-        		return 10;
+        		return 659;
       		} else {
-        		return 69;
+        		return 718;
       		}
 	    })
 	    .attr("y", function(d) {return height + margin.top + margin.bottom + 20;})
