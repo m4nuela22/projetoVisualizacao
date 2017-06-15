@@ -5,11 +5,6 @@ function histogram (array) {
 	var width = 160 - margin.left - margin.right;
 	var height = 180 - margin.top - margin.bottom;
 
-	// Modificando SVG
-	mainSVG
-		.style("position", "absolute")
-		.style("top", "0px");
-
 	//clearEverything(mySVG);
 
 	// Contando número c/s vítimas
@@ -31,17 +26,21 @@ function histogram (array) {
 
 	// Filtrando apenas dados necessários
 	var vitimas = [{nome: "Sem Vítima", vitimas: semVitima}, {nome: "Com Vítima", vitimas: comVitima}];
+	
+	var padding = 90;
+	var margemEsquerdaMin = 659;
+	var margemEsquerdaMax = 728;
 
 	// Criando eixos
 	var xAxisGroup = mainSVG.append("g")
 			.attr("class","axis")
-			.attr("transform","translate(659,"+(height-margin.top+21)+")");
+			.attr("transform","translate("+ (margemEsquerdaMin + padding) +","+(height-margin.top+21)+")");
 	var xAxis = d3.axisBottom(xScale)
 			.ticks(0);
 	xAxisGroup.call(xAxis);
 	var yAxisGroup = mainSVG.append("g")
 			.attr("class","axis")
-			.attr("transform","translate(659,18)")
+			.attr("transform","translate("+ (margemEsquerdaMin + padding) +",18)")
 			.attr("stroke","black");
 	var yAxis = d3.axisLeft(yScale);
 	yAxisGroup.call(yAxis);
@@ -51,7 +50,7 @@ function histogram (array) {
 		.selectAll("ellipse")
 	    .data(vitimas)
 	    .enter().append("rect")
-	    .attr("transform","translate(0," + (height-margin.top+21)+ ") scale(1,-1)")
+	    .attr("transform","translate(" + padding + "," + (height-margin.top+21)+ ") scale(1,-1)")
 	    .attr("x", function(d){
 	    	if (d.nome=="Sem Vítima") {
         		return 669;
@@ -80,9 +79,9 @@ function histogram (array) {
 		.attr("transform","translate(0,0)")
 		.attr("x", function(d) {
 			if (d.nome=="Sem Vítima") {
-        		return 669;
+        		return 669+80;
       		} else {
-        		return 728;
+        		return 728+80;
       		}
 	    })
 	    .attr("y", function(d) {return height + margin.top + margin.bottom + 20;})

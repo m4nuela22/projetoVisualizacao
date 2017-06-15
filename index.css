@@ -1,0 +1,25 @@
+.page-title {
+	font: 24pt sans-serif;
+	color: #252729;
+	position: relative;
+	top: 20px;
+	width: 100%;
+	left:10%;
+}
+
+#mapDiv {
+	width: 600px; 
+	height: 400px; 
+	margin-left: 10px;
+	margin-top: 5%;
+}
+
+#mainSVG {
+	position: absolute;
+	top: 15%;
+	left: 10px;
+}
+
+.pointer {
+	cursor: pointer;
+}

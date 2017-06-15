@@ -30,7 +30,7 @@ function makeFilling(data,total){
 		.data(pie(data))
 		.enter().append("g")
 		.attr("class", "arc")
-		.attr("transform", "translate(" + (770) + "," + (height+800)/2+ ")")
+		.attr("transform", "translate(" + (800) + "," + (height+500)/2+ ")")
 		.on("mouseover", function (d) {
 			d3.select("#tooltip")
 			.style("left", d3.event.pageX + "px")
@@ -73,14 +73,15 @@ function makeFilling(data,total){
 		.text(function(d) {
 			var x = Math.round((d.data.value)/total * 100);
 			var retorno;
-
+			console.log("d.data",d.data);
+			
 			if (x > 2){
 				retorno = " "+ x +"%";
 			}
 
 			return retorno;
 		});
-
+	console.log("...............");
 }
 
 function bakePie(dataset){

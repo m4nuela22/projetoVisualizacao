@@ -39,3 +39,7 @@ text {
 .pointer {
     cursor: pointer;
     }
+
+#tooltip {
+    z-index: 5;
+}

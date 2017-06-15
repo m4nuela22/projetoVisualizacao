@@ -15,23 +15,23 @@
         <script src="map.js"></script>
         <script src="histograma.js"></script>
         <script src="pie_chart.js"></script>
-        <style>
-            .pointer {
-              cursor: pointer;
-            }
-        </style>
 
          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+         
          <link rel="stylesheet" type="text/css" href="pie_chart.css">
+         <link rel="stylesheet" type="text/css" href="index.css">
 
     </head>
     <body>
-          <div id="mapDiv" style="width: 600px; height: 400px; margin-left: 10px"></div>
-
+          <div class="page-title"> Uma análise dos acidentes de trânsito na cidade do Recife - PE</div>
           <div id="tooltip" class="hidden">
           <p><strong><span id="label">Tipo</span></strong></p>
           <p><span id="value">100</span>, <span id="percentage">100</span>%</p>
           </div>
+
+          <div id="mapDiv" style="width: 600px; height: 400px; margin-left: 10px"></div>
+
+          <div id="controles"></div>
 
           <script>
              var myDispath = d3.dispatch("selectionChanged");

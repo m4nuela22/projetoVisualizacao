@@ -123,7 +123,6 @@ function createRetanglesLine(x,y,array,centerTextValue){
 }
 
 function dateSelected(d){
-  console.log(d);
   //#A9A9A9
   if(d.selected == true){
     d.selected = false;
@@ -136,7 +135,6 @@ function dateSelected(d){
   }
   var result = searchOnDatabase();
   myDispath.call("selectionChanged",{who:"map",selectedList:result});
-  console.log(result);
 }
 
 function searchOnDatabase(){
@@ -163,7 +161,7 @@ function searchOnDatabase(){
     results = results.concat(findRowsByDateTime(csv2016,mesFiltered,diaSemanaFiltered,diaFiltered,horaFiltered));
 
   }
-
+  
   return results;
 
 }
