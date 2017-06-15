@@ -93,10 +93,33 @@ function histogram (array) {
 	    .attr("font-family", "sans-serif")
 		.style("font-size", "9px")
 	    .style("fill", "black");
+
+	// Colocando porcentagem
+	var percentage = mainSVG.selectAll()
+		.data(vitimas)
+		.enter()
+		.append("text")
+		.attr("class","percHist");
+
+	var labelPercentage = percentage
+		.attr("transform","translate(103,0)")
+		.attr("x", function(d) {
+			if (d.nome=="Sem Vítima") {
+        		return 669;
+      		} else {
+        		return 728;
+      		}
+	    })
+	    .attr("y", function(d) {return height + margin.top + margin.bottom + 0;})
+	    .text( function (d) { return Math.round((d.vitimas*100)/(comVitima + semVitima)) + "%"; })
+	    .attr("font-family", "sans-serif")
+		.style("font-size", "12px")
+	    .style("fill", "white");
 }
 
 function clearEverythingHist(){
 	mainSVG.selectAll(".rectHist").remove();
 	mainSVG.selectAll(".axis").remove();
 	mainSVG.selectAll(".textHist").remove();
+	//mainSvg.selectAll(".percHist").remove();
 }
