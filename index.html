@@ -52,8 +52,8 @@
                       if (error) throw error;
                       createRecurrentTimeSelectionWidget(dataCSV2015,dataCSV2016);
                       //dataCSV2015 = dataCSV2015.slice(0,100);
-                      //addMarkersToMap(dataCSV2015);
-                      //addMarkersToMap(dataCSV2016);
+                      addMarkersToMap(dataCSV2015);
+                      addMarkersToMap(dataCSV2016);
                       histogram(dataCSV2015);
                       bakePie(dataCSV2015);
 
@@ -62,9 +62,8 @@
 
               myDispath.on("selectionChanged",function(){
                 var newData = this.selectedList;
-
-                //histogram(newData);
-                //addMarkersToMap(newData);
+                histogram(newData);
+                addMarkersToMap(newData);
                 bakePie(newData);
               });
 
