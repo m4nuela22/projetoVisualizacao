@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script type="text/javascript"></script>
+<body>
+        <input id="saveFile" type="saveFile" value="saveFile" onclick="writeCSVOnFile();" />
+    <script charset="utf-8">
+        var dataStr = "id,tipo,situacao,data,hora,bairro,endereco,numero,complemento,natureza,descricao,auto,moto,ciclom,ciclista,pedestre,onibus,caminhao,viatura,outros,vitimas,latitude,longitude,codigoBairro\n";
+        d3.csv("acidentesTransito2015.csv",function(error, dataCSV) {
+          d3.json("bairros.geojson",function(error2, geojson) {
+              if (error) throw error;
+              if (error2)throw error2;
+              dataCSV = dataCSV.slice(2,5);
+              for (var i = 0; i < dataCSV.length; i++) {
+                      var row = dataCSV[i];
+                      var latitude = row.latitude
+                      var longitude = row.longitude;
+                      var neighborhoodCode = findNeighborhoodCode(latitude,longitude,geojson);
+                      var arr = Object.keys(row).map(function (key) { return row[key]; });
+                      dataStr = dataStr + arr.join(',')+"," +neighborhoodCode+"\n";
+              }
+              console.log("done");
+
+          });
+        });
+
+        function findNeighborhoodCode(latitude,longitude,geojson){
+          var j = 0;
+          var code = -1;
+          while(j<geojson.features.length){
+            if(inside([latitude,longitude],geojson)){
+              code = geojson.features.bairro_codigo;
+              return code;
+            }
+            j++;
+          }
+          return code;
+        }
+
+
+        function inside(point, vs) {
+
+            var x = point[0], y = point[1];
+
+            var inside = false;
+            for (var i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+                var xi = vs[i][0], yi = vs[i][1];
+                var xj = vs[j][0], yj = vs[j][1];
+
+                var intersect = ((yi > y) != (yj > y))
+                    && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+                if (intersect) inside = !inside;
+            }
+
+            return inside;
+        };
+
+
+        function writeCSVOnFile(){
+            console.log(dataStr);
+            var blob = new Blob([dataStr],{ type: 'text/csv;charset=utf-8;' });
+            var a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.setAttribute('download', "acidentesTransito2015_Manu.csv");
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+          }
+</script>
+</body>
