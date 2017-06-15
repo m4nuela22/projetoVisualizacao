@@ -72,7 +72,6 @@ function makeFilling(data,total){
 		.text(function(d) {
 			var x = Math.round((d.data.value)/total * 100);
 			var retorno;
-			console.log("d.data",d.data);
 
 			if (x > 2){
 				retorno = " "+ x +"%";
@@ -80,7 +79,6 @@ function makeFilling(data,total){
 
 			return retorno;
 		});
-	console.log("...............");
 }
 
 function bakePie(dataset){
