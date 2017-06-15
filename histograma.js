@@ -1,3 +1,5 @@
+var mainSVG = d3.selectAll("#mainSVG");
+
 function histogram (array) {
 
 	// Setando dimensoes e margens do SVG
@@ -5,7 +7,7 @@ function histogram (array) {
 	var width = 160 - margin.left - margin.right;
 	var height = 180 - margin.top - margin.bottom;
 
-	//clearEverything(mySVG);
+	clearEverythingHist();
 
 	// Contando número c/s vítimas
 	var semVitima = 0;
@@ -26,7 +28,7 @@ function histogram (array) {
 
 	// Filtrando apenas dados necessários
 	var vitimas = [{nome: "Sem Vítima", vitimas: semVitima}, {nome: "Com Vítima", vitimas: comVitima}];
-	
+
 	var padding = 90;
 	var margemEsquerdaMin = 659;
 	var margemEsquerdaMax = 728;
@@ -47,9 +49,10 @@ function histogram (array) {
 
 	// Criando histograma
 	mainSVG
-		.selectAll("ellipse")
+		.selectAll()
 	    .data(vitimas)
 	    .enter().append("rect")
+			.attr("class","rectHist")
 	    .attr("transform","translate(" + padding + "," + (height-margin.top+21)+ ") scale(1,-1)")
 	    .attr("x", function(d){
 	    	if (d.nome=="Sem Vítima") {
@@ -70,18 +73,19 @@ function histogram (array) {
     	});
 
 	// Colocando textos
-	var text = mainSVG.selectAll("circle")
+	var text = mainSVG.selectAll()
 		.data(vitimas)
 		.enter()
-		.append("text");
+		.append("text")
+		.attr("class","textHist");
 
 	var labelTexts = text
 		.attr("transform","translate(0,0)")
 		.attr("x", function(d) {
 			if (d.nome=="Sem Vítima") {
-        		return 669+80;
+        		return 669+93;
       		} else {
-        		return 728+80;
+        		return 728+93;
       		}
 	    })
 	    .attr("y", function(d) {return height + margin.top + margin.bottom + 20;})
@@ -91,7 +95,8 @@ function histogram (array) {
 	    .style("fill", "black");
 }
 
-function clearEverything(mySVG){
-	mySVG.selectAll("rect").remove();
-	mySVG.selectAll(".axis").remove();
+function clearEverythingHist(){
+	mainSVG.selectAll(".rectHist").remove();
+	mainSVG.selectAll(".axis").remove();
+	mainSVG.selectAll(".textHist").remove();
 }

@@ -1,5 +1,7 @@
+var mainSVG = d3.selectAll("#mainSVG");
+
 function makePie(data){
-	clearEverything(mainSVG);
+	clearEverything();
 }
 
 function returnTotal(data){
@@ -151,7 +153,7 @@ function convertToNumber(value){
   return result;
 }
 
-function clearEverything(mainSVG){
+function clearEverything(){
 	mainSVG.selectAll(".arc").remove();
 	mainSVG.selectAll(".path").remove();
 	mainSVG.selectAll(".text").remove();
