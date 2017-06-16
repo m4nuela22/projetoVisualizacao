@@ -52,7 +52,9 @@ function histogram (array) {
 		.selectAll()
 	    .data(vitimas)
 	    .enter().append("rect")
-			.attr("class","rectHist")
+		.attr("class","rectHist")
+		.attr("class","pointer")
+		.attr("id", (function(d) {return d.nome;}))
 	    .attr("transform","translate(" + padding + "," + (height-margin.top+21)+ ") scale(1,-1)")
 	    .attr("x", function(d){
 	    	if (d.nome=="Sem Vítima") {
@@ -70,7 +72,8 @@ function histogram (array) {
       		} else {
         		return "red";
       		}
-    	});
+    	})
+    	.on("click",dateSelected);;
 
 	// Colocando textos
 	var text = mainSVG.selectAll()
