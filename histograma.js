@@ -15,6 +15,7 @@ function histogram (array) {
 	var height = 180 - margin.top - margin.bottom;
 
 	clearEverythingHist();
+	console.log(d3.selectAll(".rectHist"));
 	csv = array;
 	semVitima = 0;
 	comVitima = 0;
@@ -64,7 +65,6 @@ function histogram (array) {
 	    .data(vitimasArray)
 	    .enter().append("rect")
 		.attr("class","rectHist")
-		.attr("class","pointer")
 		.attr("id", function (d) { return d.id; })
 	    .attr("transform","translate(" + padding + "," + (height-margin.top+21)+ ") scale(1,-1)")
 	    .attr("x", function(d){
@@ -163,7 +163,7 @@ function histogramSelected(d) {
   	var result = searchOnArray();
 
   	// Avisando aos demais componentes as mudanças
-  	//myDispath.call("selectionChanged",{who:"map",selectedList:result});
+  	myDispath.call("selectionChanged",{who:"histogram",selectedList:result});
 }
 
 function searchOnArray(d) {
