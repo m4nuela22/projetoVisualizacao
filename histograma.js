@@ -15,12 +15,17 @@ function histogram (array) {
 	var height = 180 - margin.top - margin.bottom;
 
 	clearEverythingHist();
-	console.log(d3.selectAll(".rectHist"));
 	csv = array;
 	semVitima = 0;
 	comVitima = 0;
 	vitimasArray = [{id: "SemVítima", nome: "Sem Vítima", value: "SEM VÍTIMA", vitimas: semVitima, selected: false}, {id: "ComVítima", nome: "Com Vítima", value: "COM VÍTIMA", vitimas: comVitima, selected: false}];
+
 	numberOfSelections = 0;
+	for (var contador = 0; contador < vitimasArray.length; contador++) {
+		if (vitimasArray[contador].selected) {
+			numberOfSelections += 1;
+		}
+	}
 
 	// Contando número c/s vítimas
 	for (var i=0; i < array.length ; ++i) {
@@ -175,6 +180,7 @@ function searchOnArray(d) {
 	var results  = [];
 	if (numberOfSelections == 0 || numberOfSelections == 2){
     	results = csv;
+    	myDispath.call("selectionChanged",{who:"map",selectedList:results});
   	} else {
        results = results.concat(findRowsByVitima(csv,vitimaFiltered));
  	}

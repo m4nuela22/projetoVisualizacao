@@ -61,10 +61,17 @@
               });
 
               myDispath.on("selectionChanged",function(){
-                var newData = this.selectedList;
-                histogram(newData);
-                addMarkersToMap(newData);
-                bakePie(newData);
+                if (this.who=="map"){
+                  var newData = this.selectedList;
+                  histogram(newData);
+                  addMarkersToMap(newData);
+                  bakePie(newData);
+                }
+                if (this.who=="histogram"){
+                  var newData = this.selectedList;
+                  addMarkersToMap(newData);
+                  bakePie(newData);
+                }
               });
 
           </script>
