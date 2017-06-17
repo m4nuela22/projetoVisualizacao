@@ -27,7 +27,7 @@ function histogram (array) {
 	var histogramScale = d3.scaleLinear().domain([semVitima + comVitima,0]).range([height,0]);
 
 	// Filtrando apenas dados necessários
-	var vitimas = [{nome: "Sem Vítima", vitimas: semVitima}, {nome: "Com Vítima", vitimas: comVitima}];
+	var vitimas = [{nome: "SemVítima", vitimas: semVitima, selected: false}, {nome: "ComVítima", vitimas: comVitima, selected: false}];
 
 	var padding = 90;
 	var margemEsquerdaMin = 659;
@@ -54,10 +54,10 @@ function histogram (array) {
 	    .enter().append("rect")
 		.attr("class","rectHist")
 		.attr("class","pointer")
-		.attr("id", (function(d) {return d.nome;}))
+		.attr("id", function (d) { return d.nome; })
 	    .attr("transform","translate(" + padding + "," + (height-margin.top+21)+ ") scale(1,-1)")
 	    .attr("x", function(d){
-	    	if (d.nome=="Sem Vítima") {
+	    	if (d.nome=="SemVítima") {
         		return 669;
       		} else {
         		return 728;
@@ -67,13 +67,13 @@ function histogram (array) {
 	    .attr("width", 50)
 	    .attr("height", function(d) {return histogramScale(d.vitimas);})
 	    .attr("fill", function(d) {
-      		if (d.nome=="Sem Vítima") {
+      		if (d.nome=="SemVítima") {
         		return "blue";
       		} else {
         		return "red";
       		}
     	})
-    	.on("click",dateSelected);;
+    	.on("click",histogramSelected);
 
 	// Colocando textos
 	var text = mainSVG.selectAll()
@@ -85,7 +85,7 @@ function histogram (array) {
 	var labelTexts = text
 		.attr("transform","translate(0,0)")
 		.attr("x", function(d) {
-			if (d.nome=="Sem Vítima") {
+			if (d.nome=="SemVítima") {
         		return 669+93;
       		} else {
         		return 728+93;
@@ -107,7 +107,7 @@ function histogram (array) {
 	var labelPercentage = percentage
 		.attr("transform","translate(103,0)")
 		.attr("x", function(d) {
-			if (d.nome=="Sem Vítima") {
+			if (d.nome=="SemVítima") {
         		return 669;
       		} else {
         		return 728;
@@ -125,4 +125,24 @@ function clearEverythingHist(){
 	mainSVG.selectAll(".axis").remove();
 	mainSVG.selectAll(".textHist").remove();
 	//mainSvg.selectAll(".percHist").remove();
+}
+
+function histogramSelected(d) {
+	if(d.selected == true){
+    	d.selected = false;
+    	d3.select("#" + d.nome)
+    	.attr("fill", function(d) {
+      		if (d.nome=="SemVítima") {
+        		return "blue";
+      		} else {
+        		return "red";
+      		}
+      	});
+    	numberOfSelections -= 1;
+  	}else{
+    	d.selected = true;
+    	d3.select("#" + d.nome)
+    	.attr("fill","#A9A9A9");
+    	numberOfSelections += 1;
+  	}
 }
