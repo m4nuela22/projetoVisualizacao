@@ -14,18 +14,14 @@ function histogram (array) {
 	var width = 160 - margin.left - margin.right;
 	var height = 180 - margin.top - margin.bottom;
 
+	// Zerando dados
 	clearEverythingHist();
 	csv = array;
 	semVitima = 0;
 	comVitima = 0;
 	vitimasArray = [{id: "SemVítima", nome: "Sem Vítima", value: "SEM VÍTIMA", vitimas: semVitima, selected: false}, {id: "ComVítima", nome: "Com Vítima", value: "COM VÍTIMA", vitimas: comVitima, selected: false}];
-
 	numberOfSelections = 0;
-	for (var contador = 0; contador < vitimasArray.length; contador++) {
-		if (vitimasArray[contador].selected) {
-			numberOfSelections += 1;
-		}
-	}
+
 
 	// Contando número c/s vítimas
 	for (var i=0; i < array.length ; ++i) {
