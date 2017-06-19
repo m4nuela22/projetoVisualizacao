@@ -129,7 +129,8 @@ function histogram (array) {
 	    .text( function (d) { return Math.round((d.vitimas*100)/(comVitima + semVitima)) + "%"; })
 	    .attr("font-family", "sans-serif")
 		.style("font-size", "12px")
-	    .style("fill", "white");
+	    .style("fill", "white")
+	    .on("click",histogramSelected);
 }
 
 function clearEverythingHist(){
