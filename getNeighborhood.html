@@ -10,7 +10,7 @@
           d3.json("bairros.geojson",function(error2, geojson) {
               if (error) throw error;
               if (error2)throw error2;
-              dataCSV = dataCSV.slice(2,5);
+              dataCSV = dataCSV.slice(0,30);
               for (var i = 0; i < dataCSV.length; i++) {
                       var row = dataCSV[i];
                       var latitude = row.latitude
@@ -30,7 +30,7 @@
           while(j<geojson.features.length){
               code = -1;
             if(inside([latitude,longitude],geojson.features[j].geometry.coordinates[0])){
-              code = geojson.features[j].bairro_codigo;
+              code = geojson.features[j].properties.bairro_codigo;
               return code;
             }
             j++;
@@ -41,7 +41,7 @@
 
         function inside(point, vs) {
 
-            var x = parseFloat(point[0]), y = parseFloat(point[1]);
+            var x = parseFloat(point[1]), y = parseFloat(point[0]);
 
             var inside = false;
             for (var i = 0, j = vs.length - 1; i < vs.length; j = i++) {
