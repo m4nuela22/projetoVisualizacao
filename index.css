@@ -20,10 +20,22 @@
 	left: 10px;
 }
 
+.axis {
+	cursor: default;
+}
+
 .pointer {
 	cursor: pointer;
 }
 
 .rectHist {
+	cursor: pointer;
+}
+
+.textHist {
+	cursor: default;
+}
+
+.percHist {
 	cursor: pointer;
 }
