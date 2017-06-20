@@ -10,7 +10,6 @@
           d3.json("bairros.geojson",function(error2, geojson) {
               if (error) throw error;
               if (error2)throw error2;
-              dataCSV = dataCSV.slice(0,30);
               for (var i = 0; i < dataCSV.length; i++) {
                       var row = dataCSV[i];
                       var latitude = row.latitude
