@@ -26,10 +26,11 @@
 
         function findNeighborhoodCode(latitude,longitude,geojson){
           var j = 0;
-          var code = -1;
+          var code;
           while(j<geojson.features.length){
-            if(inside([latitude,longitude],geojson)){
-              code = geojson.features.bairro_codigo;
+              code = -1;
+            if(inside([latitude,longitude],geojson.features[j].geometry.coordinates[0])){
+              code = geojson.features[j].bairro_codigo;
               return code;
             }
             j++;
@@ -40,7 +41,7 @@
 
         function inside(point, vs) {
 
-            var x = point[0], y = point[1];
+            var x = parseFloat(point[0]), y = parseFloat(point[1]);
 
             var inside = false;
             for (var i = 0, j = vs.length - 1; i < vs.length; j = i++) {
