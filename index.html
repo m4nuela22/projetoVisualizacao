@@ -30,16 +30,17 @@
           </div>
 
           <div id="mapDiv" style="width: 600px; height: 400px; margin-left: 10px"></div>
-
+          <input type="button" id="choiceButton" value="<->" onclick="swapMap()">
           <div id="controles"></div>
 
           <script>
              var myDispath = d3.dispatch("selectionChanged");
               createMap();
+              var mapState = "marker";
               var margin = {top:10, right:10, bottom:10,left:10};
               var width = screen.width - margin.left - margin.right;
               var height = screen.height - margin.top - margin.bottom;
-
+              var newData;
               var mainSVG = d3.select("body")
               .append("svg")
               .attr("id","mainSVG")
@@ -51,8 +52,10 @@
                   d3.csv("acidentesTransito2016.csv",function(error, dataCSV2016) {
                       if (error) throw error;
                       createRecurrentTimeSelectionWidget(dataCSV2015,dataCSV2016);
-                      dataCSV2015 = dataCSV2015.slice(2,5);
-                      addMarkersToMap(dataCSV2015);
+                      dataCSV2015 = dataCSV2015.slice(0,100);
+                      //addMarkersToMap(dataCSV2015);
+                      //generatechoropleth(dataCSV2015);
+                      handleMap(dataCSV2015);
                       //addMarkersToMap(dataCSV2016);
                       histogram(dataCSV2015);
                       bakePie(dataCSV2015);
@@ -61,17 +64,36 @@
               });
 
               myDispath.on("selectionChanged",function(){
-                var newData = this.selectedList;
+                newData = this.selectedList;
                 if (this.who=="map"){
                   histogram(newData);
-                  addMarkersToMap(newData);
+                  handleMap(newData);
                   bakePie(newData);
                 }
                 if (this.who=="histogram"){
-                  addMarkersToMap(newData);
+                  handleMap(newData);
                   bakePie(newData);
                 }
               });
+
+              function handleMap(newData){
+                if(mapState=="choropleth"){
+                  generatechoropleth(newData);
+                }else{
+                  addMarkersToMap(newData);
+                }
+              }
+
+              function swapMap(){
+                console.log("click!");
+                if (mapState=="choropleth"){
+                  mapState = "maker";
+                  addMarkersToMap(newData)
+                }else{
+                  mapState = "choropleth";
+                  generatechoropleth(newData);
+                }
+              }
 
           </script>
     </body>
