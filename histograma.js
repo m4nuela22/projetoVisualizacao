@@ -61,31 +61,56 @@ function histogram (array) {
 	yAxisGroup.call(yAxis);
 
 	// Criando histograma
-	mainSVG
-		.selectAll()
-	    .data(vitimasArray)
-	    .enter().append("rect")
-		.attr("class","rectHist")
-		.attr("id", function (d) { return d.id; })
-	    .attr("transform","translate(" + padding + "," + (height-margin.top+21)+ ") scale(1,-1)")
-	    .attr("x", function(d){
-	    	if (d.nome=="Sem Vítima") {
-        		return 669;
-      		} else {
-        		return 728;
-      		}
-	    })
-	    .attr("y", 0)
-	    .attr("width", 50)
-	    .attr("height", function(d) {return histogramScale(d.vitimas);})
-	    .attr("fill", function(d) {
-      		if (d.nome=="Sem Vítima") {
-        		return "blue";
-      		} else {
-        		return "red";
-      		}
-    	})
-    	.on("click",histogramSelected);
+	if (array.length > 0) {
+		mainSVG
+			.selectAll()
+	    	.data(vitimasArray)
+	    	.enter().append("rect")
+			.attr("class","rectHist")
+			.attr("id", function (d) { return d.id; })
+	    	.attr("transform","translate(" + padding + "," + (height-margin.top+21)+ ") scale(1,-1)")
+	    	.attr("x", function(d){
+	    		if (d.nome=="Sem Vítima") {
+        			return 669;
+      			} else {
+        			return 728;
+      			}
+	    	})
+	    	.attr("y", 0)
+	    	.attr("width", 50)
+	    	.attr("height", function(d) {return histogramScale(d.vitimas);})
+	    	.attr("fill", function(d) {
+      			if (d.nome=="Sem Vítima") {
+        			return "blue";
+      			} else {
+        			return "red";
+      			}
+    		})
+    		.on("click",histogramSelected);
+
+		// Colocando porcentagem
+		var percentage = mainSVG.selectAll()
+			.data(vitimasArray)
+			.enter()
+			.append("text")
+			.attr("class","percHist");
+
+		var labelPercentage = percentage
+			.attr("transform","translate(103,0)")
+			.attr("x", function(d) {
+				if (d.nome=="Sem Vítima") {
+        			return 669;
+      			} else {
+        			return 728;
+      			}
+	    	})
+	    	.attr("y", function(d) {return height + margin.top + margin.bottom + 0;})
+	    	.text( function (d) { return Math.round((d.vitimas*100)/(comVitima + semVitima)) + "%"; })
+	    	.attr("font-family", "sans-serif")
+			.style("font-size", "12px")
+	    	.style("fill", "white")
+	    	.on("click",histogramSelected);
+    }
 
 	// Colocando textos
 	var text = mainSVG.selectAll()
@@ -108,36 +133,14 @@ function histogram (array) {
 	    .attr("font-family", "sans-serif")
 		.style("font-size", "9px")
 	    .style("fill", "black");
-
-	// Colocando porcentagem
-	var percentage = mainSVG.selectAll()
-		.data(vitimasArray)
-		.enter()
-		.append("text")
-		.attr("class","percHist");
-
-	var labelPercentage = percentage
-		.attr("transform","translate(103,0)")
-		.attr("x", function(d) {
-			if (d.nome=="Sem Vítima") {
-        		return 669;
-      		} else {
-        		return 728;
-      		}
-	    })
-	    .attr("y", function(d) {return height + margin.top + margin.bottom + 0;})
-	    .text( function (d) { return Math.round((d.vitimas*100)/(comVitima + semVitima)) + "%"; })
-	    .attr("font-family", "sans-serif")
-		.style("font-size", "12px")
-	    .style("fill", "white")
-	    .on("click",histogramSelected);
 }
 
 function clearEverythingHist(){
 	mainSVG.selectAll(".rectHist").remove();
 	mainSVG.selectAll(".axis").remove();
+	var teste = (mainSVG.selectAll(".percHist"));
+	teste.remove();
 	mainSVG.selectAll(".textHist").remove();
-	//mainSvg.selectAll(".percHist").remove();
 }
 
 function histogramSelected(d) {
