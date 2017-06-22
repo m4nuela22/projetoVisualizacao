@@ -37,36 +37,40 @@
              var myDispath = d3.dispatch("selectionChanged");
               createMap();
               var mapState = "marker";
+              var newData;
               var margin = {top:10, right:10, bottom:10,left:10};
               var width = screen.width - margin.left - margin.right;
               var height = screen.height - margin.top - margin.bottom;
-              var newData;
               var mainSVG = d3.select("body")
               .append("svg")
               .attr("id","mainSVG")
               .attr("width", width)
               .attr("height",height);
-              
-              mainSVG.append("circle")
-              .attr ("cx", 590)
-              .attr("cy", 435)
-              .attr("r", 10)
+
+              mainSVG.append("svg:image")
+              .attr ("x", 590)
+              .attr("y", 426)
+              .attr("xlink:href", "changeIcon.png")
+              .attr("width",15)
+              .attr("height",15)
               .attr("fill", "grey")
               .attr("id", "choiceButton")
               .on("click",swapMap);
+
 
               d3.csv("acidentesTransito2015.csv",function(error, dataCSV2015) {
                   if (error) throw error;
                   d3.csv("acidentesTransito2016.csv",function(error, dataCSV2016) {
                       if (error) throw error;
                       createRecurrentTimeSelectionWidget(dataCSV2015,dataCSV2016);
-                      dataCSV2015 = dataCSV2015.slice(0,100);
+                      newData = csv2015.concat(csv2016);
+                      newData = newData.slice(0,100);
                       //addMarkersToMap(dataCSV2015);
                       //generatechoropleth(dataCSV2015);
-                      handleMap(dataCSV2015);
+                      handleMap(newData);
                       //addMarkersToMap(dataCSV2016);
-                      histogram(dataCSV2015);
-                      bakePie(dataCSV2015);
+                      histogram(newData);
+                      bakePie(newData);
 
                   });
               });

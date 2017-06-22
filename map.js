@@ -18,7 +18,7 @@ var infoMarkers;
 
 
 function createMap(){
-    
+
 	mymap = L.map('mapDiv').setView([-8.056223, -34.913620], currentZoom);
   myTileLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
 		maxZoom: 18,
@@ -41,7 +41,7 @@ function createMap(){
     transform = d3.geoTransform({point: projectPoint});
   	path = d3.geoPath().projection(transform);
 
-		geojsonLeafLet = L.geoJson(geojson, { weight: 1, onEachFeature: onEachFeature })
+		geojsonLeafLet = L.geoJson(geojson, { weight: 1, onEachFeature: onEachFeature, style:{fillColor: 'white'} })
 	  geojsonLeafLet.addTo(mymap);
 
     mymap.on("zoom", update);
@@ -140,7 +140,7 @@ function styleChoropleth(features){
 function styleMarkers(features){
   return {
     fillColor: 'white',
-		opacity: 0.7,
+		opacity: 1,
     weight: 1
   };
 }
@@ -179,7 +179,7 @@ function addInfoChoropleth(){
 
 function removeInfoChoropleth(){
 	if(infoChoropleth!= undefined){
-		infoChoropleth.removeFrom(mymap);
+		infoChoropleth.remove(mymap);
 	}
 }
 
@@ -189,6 +189,7 @@ function addMarkersToMap(array){
 	myTileLayer.setOpacity(1);
 	mymap.setZoom(12);
 	removeInfoChoropleth();
+  geojsonLeafLet.setStyle(styleMarkers);
 
 	points = mapSVG.selectAll("circle").remove();
 
