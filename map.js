@@ -18,6 +18,7 @@ var infoMarkers;
 
 
 function createMap(){
+    
 	mymap = L.map('mapDiv').setView([-8.056223, -34.913620], currentZoom);
   myTileLayer = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
 		maxZoom: 18,

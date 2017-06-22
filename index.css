@@ -55,8 +55,10 @@
 	 color: #777;
 }
 
-#choiceButton{
+#choiceButton {
+	position: absolute;
 	margin: 5px 0px 0px 564px;
 	width:auto;
 	height:auto;
+	cursor: pointer;
 }

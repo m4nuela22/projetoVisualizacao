@@ -30,7 +30,7 @@
           </div>
 
           <div id="mapDiv" style="width: 600px; height: 400px; margin-left: 10px"></div>
-          <input type="button" id="choiceButton" value="<->" onclick="swapMap()">
+          <!--input type="button" id="choiceButton" value="<->" onclick="swapMap()"-->
           <div id="controles"></div>
 
           <script>
@@ -46,6 +46,14 @@
               .attr("id","mainSVG")
               .attr("width", width)
               .attr("height",height);
+              
+              mainSVG.append("circle")
+              .attr ("cx", 590)
+              .attr("cy", 435)
+              .attr("r", 10)
+              .attr("fill", "grey")
+              .attr("id", "choiceButton")
+              .on("click",swapMap);
 
               d3.csv("acidentesTransito2015.csv",function(error, dataCSV2015) {
                   if (error) throw error;
