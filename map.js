@@ -141,7 +141,7 @@ function styleChoropleth(features){
 function styleMarkers(features){
   return {
     fillColor: 'white',
-		opacity: 1,
+		fillOpacity:0,
     weight: 1
   };
 }
