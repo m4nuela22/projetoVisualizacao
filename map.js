@@ -133,9 +133,9 @@ function getColor(d,max) {
 function styleChoropleth(features){
   return {
     fillColor: getColor(returnNumberOfAcidentsOrZero(acidentsPerNeighborhood[features.properties.bairro_codigo]),maxAcidentes),
-		opacity:1,
-		weight: 1
-  };
+		fillOpacity:1,
+		weight: 1,
+  }
 }
 
 function styleMarkers(features){
