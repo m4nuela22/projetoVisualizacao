@@ -41,7 +41,7 @@ function createMap(){
     transform = d3.geoTransform({point: projectPoint});
   	path = d3.geoPath().projection(transform);
 
-		geojsonLeafLet = L.geoJson(geojson, { weight: 1, onEachFeature: onEachFeature, style:{fillColor: 'white'} })
+		geojsonLeafLet = L.geoJson(geojson, { weight: 1, onEachFeature: onEachFeature, style:{fillColor: 'white'}})
 	  geojsonLeafLet.addTo(mymap);
 
     mymap.on("zoom", update);
@@ -68,6 +68,7 @@ function generatechoropleth(array){
 	if (array.length != 0){
 		  myTileLayer.setOpacity(0.2);
 			mymap.setZoom(11);
+			mapSVG.selectAll("circle").remove();
 			createInfoChoropleth();
 			addInfoChoropleth();
 			maxAcidentes = 0;
