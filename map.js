@@ -1,3 +1,4 @@
+var mainSVG = d3.selectAll("#mainSVG");
 var mymap;
 var mapSVG;
 var transform;
@@ -14,8 +15,8 @@ var maxAcidentes;
 var myTileLayer;
 var infoChoropleth;
 var infoMarkers;
-
-
+var colorArray = ['#fcbba1','#fc9272','#fb6a4a','#ef3b2c','#cb181d','#67000d'];
+var choroplethLegend;
 
 function createMap(){
 
@@ -94,9 +95,12 @@ function generatechoropleth(array){
 		  }
 		  //cScaleChoropleth = d3.scaleLinear().domain([minAcidentes,maxAcidentes]).range(['#fee5d9','#fcbba1','#fc9272','#fb6a4a','#de2d26','#a50f15']);
 		  //geojsonLeafLet.setStyle(style(geojsonArray.features));
+			//displayLegend(maxAcidentes);
 			geojsonLeafLet.setStyle(styleChoropleth);
+			addLegendToMap();
 	}else{
 			geojsonLeafLet.setStyle(styleMarkers);
+			removeLegendFromMap();
 	}
 }
 
@@ -121,13 +125,22 @@ function hideChoroplethInfo(){
 }
 
 function getColor(d,max) {
-		var value = max/7;
-    return d > 5*value  ? '#67000d' :
-           d > 4*value  ? '#a50f15' :
-           d > 3*value  ? '#cb181d' :
-           d > 2*value  ? '#ef3b2c' :
-           d > value    ? '#fb6a4a' :
-            							'#fc9272';
+	var value = max/6;
+  return d >= 5*value  ? colorArray[5] :
+         d > 4*value  ? colorArray[4] :
+         d > 3*value  ? colorArray[3] :
+         d > 2*value  ? colorArray[2] :
+         d > value    ? colorArray[1] :
+          							colorArray[0];
+}
+
+function getGrades(max){
+	var value = max/6;
+	var grades = [];
+	for (var i = 0 ; i<=5; i++){
+		grades.push(parseFloat(parseFloat(value*i).toFixed(2)));
+	}
+	return grades;
 }
 
 function styleChoropleth(features){
@@ -184,12 +197,20 @@ function removeInfoChoropleth(){
 	}
 }
 
+function removeLegendFromMap(){
+	if(choroplethLegend != undefined){
+		choroplethLegend.remove(mymap);
+		choroplethLegend = undefined;
+	}
+}
+
 function addMarkersToMap(array){
 	var lat;
 	var long;
 	myTileLayer.setOpacity(1);
 	mymap.setZoom(12);
 	removeInfoChoropleth();
+	removeLegendFromMap();
   geojsonLeafLet.setStyle(styleMarkers);
 
 	points = mapSVG.selectAll("circle").remove();
@@ -216,4 +237,27 @@ function getPoint(x,y){
 function projectPoint(x, y) {
        var point = mymap.latLngToLayerPoint(new L.LatLng(y, x));
        this.stream.point(point.x, point.y);
+}
+
+function addLegendToMap(){
+	removeLegendFromMap();
+	choroplethLegend= L.control({position: 'bottomright'});
+
+	choroplethLegend.onAdd = function (mymap) {
+
+	    var div = L.DomUtil.create('div', 'info legend'),
+	        grades = getGrades(maxAcidentes),
+	        labels = [];
+
+	    // loop through our density intervals and generate a label with a colored square for each interval
+	    for (var i = 0; i < grades.length; i++) {
+	        div.innerHTML +=
+	            '<i style="background-color:' + getColor(grades[i]+0.1,maxAcidentes) + '"></i> ' +
+	            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+	    }
+
+	    return div;
+	};
+
+	choroplethLegend.addTo(mymap);
 }
