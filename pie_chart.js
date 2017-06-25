@@ -1,86 +1,101 @@
 var mainSVG = d3.selectAll("#mainSVG");
 
-function makePie(data){
-	clearEverything();
-}
-
-function returnTotal(data){
-
-}
-
 function makeFilling(data,total){
 	var width = 300,
-		height = 300,
-		radius = Math.min(width, height) / 2;
+	height = 300,
+	radius = Math.min(width, height) / 2;
 
-	var color = d3.scaleOrdinal()
-		.range(["#a6cee3","#1f78b4","#b2df8a","#33a02c","#fb9a99","#e31a1c","#fdbf6f","#ff7f00","#cab2d6"]);
+	if (total == 0){
+		var dataset = [[10,"Nenhum acidente reportado nesse período"]];
 
-	var arc = d3.arc()
-		.outerRadius(radius - 10)
-		.innerRadius(0);
+		var circle = mainSVG.selectAll("circle")
+			.data(dataset)
+			.enter()
+			.append("circle")
+			.attr("class","circle-empty")
+			.attr("transform", "translate(" + (750) + "," + (380) + ")")
+			.attr("r", 140)
+			.attr("cx", 50)
+			.attr("cy", 20);
 
-	var labelArc = d3.arc()
-		.outerRadius(radius - 40)
-		.innerRadius(radius - 40);
+		var label = mainSVG.selectAll(".circle-empty-text")
+			.data(dataset)
+			.enter()
+			.append("text")
+			.attr("class","circle-empty-text")
+			.attr("transform", "translate(" + (685) + "," + (400) + ")")
+			.text(function(d) {return d[1];});
 
-	var pie = d3.pie()
-		.sort(null)
-		.value(function(d) { return d.value; });
+	}else{
+		var color = d3.scaleOrdinal()
+			.range(["#a6cee3","#1f78b4","#b2df8a","#33a02c","#fb9a99","#e31a1c","#fdbf6f","#ff7f00","#cab2d6"]);
 
-	var g = mainSVG.selectAll(".arc")
-		.data(pie(data))
-		.enter().append("g")
-		.attr("class", "arc")
-		.attr("transform", "translate(" + (800) + "," + (height+500)/2+ ")")
-		.on("mouseover", function (d) {
-			d3.select("#tooltip")
-			.style("left", d3.event.pageX + "px")
-			.style("top", d3.event.pageY + "px")
-			.style("opacity", 1)
-			.select("#label")
-			.text(d.data.label);
+		var arc = d3.arc()
+			.outerRadius(radius - 10)
+			.innerRadius(0);
 
-		d3.select("#tooltip")
-			.style("left", d3.event.pageX + "px")
-			.style("top", d3.event.pageY + "px")
-			.style("opacity", 1)
-			.select("#value")
-			.text(d.value);
+		var labelArc = d3.arc()
+			.outerRadius(radius - 40)
+			.innerRadius(radius - 40);
 
-		d3.select("#tooltip")
-			.style("left", d3.event.pageX + "px")
-			.style("top", d3.event.pageY + "px")
-			.style("opacity", 1)
-			.select("#percentage")
-			.text(Math.round(d.value/total*100));
+		var pie = d3.pie()
+			.sort(null)
+			.value(function(d) { return d.value; });
 
-		})
-		.on("mouseout", function () {
-			// Hide the tooltip
-			d3.select("#tooltip")
-			.style("opacity", 0);
-		});
+		var g = mainSVG.selectAll(".arc")
+			.data(pie(data))
+			.enter().append("g")
+			.attr("class", "arc")
+			.attr("transform", "translate(" + (800) + "," + (height+500)/2+ ")")
+			.on("mouseover", function (d) {
+				d3.select("#tooltip")
+				.style("left", d3.event.pageX + "px")
+				.style("top", d3.event.pageY + "px")
+				.style("opacity", 1)
+				.select("#label")
+				.text(d.data.label);
 
-	g.append("path")
-    	.attr("class","path")
-		.attr("d", arc)
-		.style("fill", function(d) { return color(d.data.label); });
+				d3.select("#tooltip")
+					.style("left", d3.event.pageX + "px")
+					.style("top", d3.event.pageY + "px")
+					.style("opacity", 1)
+					.select("#value")
+					.text(d.value);
 
-	g.append("text")
-		.attr("class","text pointer")
-		.attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
-		.attr("dy", ".35em")
-		.text(function(d) {
-			var x = Math.round((d.data.value)/total * 100);
-			var retorno;
+				d3.select("#tooltip")
+					.style("left", d3.event.pageX + "px")
+					.style("top", d3.event.pageY + "px")
+					.style("opacity", 1)
+					.select("#percentage")
+					.text(Math.round(d.value/total*100));
 
-			if (x > 2){
-				retorno = " "+ x +"%";
-			}
+			})
+			.on("mouseout", function () {
+				// Hide the tooltip
+				d3.select("#tooltip")
+				.style("opacity", 0);
+			});
 
-			return retorno;
-		});
+		g.append("path")
+	    	.attr("class","path")
+			.attr("d", arc)
+			.style("fill", function(d) { return color(d.data.label); });
+
+		g.append("text")
+			.attr("class","text pointer")
+			.attr("transform", function(d) { return "translate(" + labelArc.centroid(d) + ")"; })
+			.attr("dy", ".35em")
+			.text(function(d) {
+				var x = Math.round((d.data.value)/total * 100);
+				var retorno;
+
+				if (x > 2){
+					retorno = " "+ x +"%";
+				}
+
+				return retorno;
+			});
+	}
 }
 
 function bakePie(dataset){
@@ -141,7 +156,6 @@ function bakePie(dataset){
 	total = acidentes_auto+acidentes_moto+acidentes_ciclom+acidentes_ciclista+acidentes_pedestre+acidentes_onibus+acidentes_caminhao+acidentes_viatura+acidentes_outros;
 
 	makeFilling(data,total);
-
 }
 
 function convertToNumber(value){
@@ -157,5 +171,6 @@ function clearEverything(){
 	mainSVG.selectAll(".arc").remove();
 	mainSVG.selectAll(".path").remove();
 	mainSVG.selectAll(".text").remove();
-	mainSVG.selectAll(".remove").remove();
+	mainSVG.selectAll("circle").remove();
+	mainSVG.selectAll(".circle-empty-text").remove();
 }

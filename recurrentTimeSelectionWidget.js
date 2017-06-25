@@ -133,7 +133,7 @@ function dateSelected(d){
   }else{
     d.selected = true;
     d3.select("#" + d.id)
-    .attr("fill","#A9A9A9");
+    .attr("fill","#C7C7C7");
     numberOfSelections += 1;
   }
   var result = searchOnDatabase();
