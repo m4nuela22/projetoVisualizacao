@@ -16,7 +16,7 @@ var involved = [{"label":"Carros","value":0,"selected":false},
 
 var rawData;
 
-var myDispath2 = d3.dispatch("selectionChanged");
+// var myDispath = d3.dispatch("selectionChanged");
 
 function makeFilling(data,total){
 	var width = 300,
@@ -232,27 +232,24 @@ function pieSelected(d){
 	
 	var result = filterBySelection();
 
-	myDispath2.call("selectionChanged",{who:"pie",selectedList:result});
+	myDispath.call("selectionChanged",{who:"pie",selectedList:result});
 }
 
 function filterBySelection(d) {
-	var typeFiltered = involved
+	var typeFiltered = [];
+	typeFiltered = involved
 	.filter(function(d){return d.selected == true;})
 	.map(function(d){return d.label;});
-
-	console.log("number of selections: "+selectedSlices);
 
 	// Filtrando
 	var results = [];
 	if (selectedSlices == 0){
-		console.log("zero selections!")
 		results = rawData;
-		myDispath2.call("selectionChanged",{who:"map",selectedList:results});
-	 	myDispath2.call("selectionChanged",{who:"histograma",selectedList:results});
+		myDispath.call("selectionChanged",{who:"map",selectedList:results});
+	 	myDispath.call("selectionChanged",{who:"histograma",selectedList:results});
 	}else{
 		results = getRowsByVehicle(rawData,typeFiltered);
 	}
-	console.log("results: ",results);
 	return results;
 }
 
@@ -270,32 +267,32 @@ function getRowsByVehicle(database,typeFiltered){
 		// 		relevantArray.push(row);
 		// 	}
 		// }
-		
-		if (typeFiltered == "Carros" && row.auto != ""){
+	
+		if (typeFiltered.indexOf("Carros") > -1 && row.auto != ""){
 			relevantArray.push(row);
 		}		
-		if (typeFiltered == "Motos" && row.moto != ""){
+		if (typeFiltered.indexOf("Motos") > -1 && row.moto != ""){
 			relevantArray.push(row);
 		}
-		if (typeFiltered == "Ciclomotores" && row.ciclom != ""){
+		if (typeFiltered.indexOf("Ciclomotores") > -1 && row.ciclom != ""){
 			relevantArray.push(row);
 		}
-		if (typeFiltered == "Bicicletas" && row.ciclista != ""){
+		if (typeFiltered.indexOf("Bicicletas") > -1 && row.ciclista != ""){
 			relevantArray.push(row);
 		}
-		if (typeFiltered == "Pedestres" && row.pedestre != ""){
+		if (typeFiltered.indexOf("Pedestres") > -1 && row.pedestre != ""){
 			relevantArray.push(row);
 		}
-		if (typeFiltered == "Ônibus" && row.onibus != ""){
+		if (typeFiltered.indexOf("Ônibus") > -1 && row.onibus != ""){
 			relevantArray.push(row);
 		}
-		if (typeFiltered == "Caminhões" && row.caminhao != ""){
+		if (typeFiltered.indexOf("Caminhões") > -1 && row.caminhao != ""){
 			relevantArray.push(row);
 		}
-		if (typeFiltered == "Viaturas" && row.viatura != ""){
+		if (typeFiltered.indexOf("Viaturas") > -1 && row.viatura != ""){
 			relevantArray.push(row);
 		}
-		if (typeFiltered == "Outros" && row.outros != ""){
+		if (typeFiltered.indexOf("Outros") > -1 && row.outros != ""){
 			relevantArray.push(row);
 		}
 	}
