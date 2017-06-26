@@ -261,8 +261,7 @@ function pieSelected(d){
 			.style("fill","#C7C7C7");
 		selectedSlices += 1;
 	}
-	
-	console.log(selectedSlices);
+
 	var result = filterBySelection();
 
 	myDispath.call("selectionChanged",{who:"pie",selectedList:result});
@@ -277,7 +276,6 @@ function filterBySelection(d) {
 	// Filtrando
 	var results = [];
 	if (selectedSlices == 0){
-		console.log("nenhuma fatia selecionada");
 		results = rawData;
 		myDispath.call("selectionChanged",{who:"map",selectedList:results});
 	 	myDispath.call("selectionChanged",{who:"histograma",selectedList:results});
