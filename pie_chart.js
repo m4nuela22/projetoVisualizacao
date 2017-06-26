@@ -16,13 +16,45 @@ var involved = [{"label":"Carros","value":0,"selected":false},
 
 var rawData;
 
-// var myDispath = d3.dispatch("selectionChanged");
+function zeroSlices(d){
+	selectedSlices = 0;
+
+	for (i=0;i<Object.keys(involved).length;i++){
+		if (involved[i].label == "Carros" ){
+			involved[i].selected = false;
+		}
+		if (involved[i].label == "Motos"){
+			involved[i].selected = false;
+		}
+		if (involved[i].label == "Ciclomotores"){
+			involved[i].selected = false;
+		}
+		if (involved[i].label == "Bicicletas"){
+			involved[i].selected = false;
+		}
+		if (involved[i].label == "Pedestres"){
+			involved[i].selected = false;
+		}
+		if (involved[i].label == "Ônibus"){
+			involved[i].selected = false;
+		}
+		if (involved[i].label == "Caminhões"){
+			involved[i].selected = false;
+		}
+		if (involved[i].label == "Viaturas"){
+			involved[i].selected = false;
+		}
+		if (involved[i].label == "Outros"){
+			involved[i].selected = false;
+		}
+	}
+}
 
 function makeFilling(data,total){
 	var width = 300,
 	height = 300,
 	radius = Math.min(width, height) / 2;
-		
+	
 	if (total == 0){
 		var dataset = [[10,"Nenhum acidente reportado nesse período"]];
 
@@ -214,10 +246,10 @@ function clearEverything(){
 	mainSVG.selectAll(".text").remove();
 	mainSVG.selectAll("circle").remove();
 	mainSVG.selectAll(".circle-empty-text").remove();
+	zeroSlices();
 }
 
 function pieSelected(d){
-	//Atualização de cores
 	if(d.data.selected == true){
 		d.data.selected = false;
 		d3.select("#" + d.data.label)
@@ -230,6 +262,7 @@ function pieSelected(d){
 		selectedSlices += 1;
 	}
 	
+	console.log(selectedSlices);
 	var result = filterBySelection();
 
 	myDispath.call("selectionChanged",{who:"pie",selectedList:result});
@@ -244,6 +277,7 @@ function filterBySelection(d) {
 	// Filtrando
 	var results = [];
 	if (selectedSlices == 0){
+		console.log("nenhuma fatia selecionada");
 		results = rawData;
 		myDispath.call("selectionChanged",{who:"map",selectedList:results});
 	 	myDispath.call("selectionChanged",{who:"histograma",selectedList:results});
@@ -259,15 +293,7 @@ function getRowsByVehicle(database,typeFiltered){
 	var relevantArray = []
 	for (var i = 0 ; i<database.length; i++){
 		var row = database[i];
-		// var tipo = row.tipo;
 
-		// if (tipo != null && tipo != undefined) {
-		// 	// Verificando se essa linha é relevante
-		// 	if (tipo == vitimaFiltered[0]) {
-		// 		relevantArray.push(row);
-		// 	}
-		// }
-	
 		if (typeFiltered.indexOf("Carros") > -1 && row.auto != ""){
 			relevantArray.push(row);
 		}		
