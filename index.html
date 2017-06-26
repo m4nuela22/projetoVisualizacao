@@ -71,12 +71,12 @@
                       //addMarkersToMap(dataCSV2016);
                       histogram(newData);
                       bakePie(newData);
-
                   });
               });
 
               myDispath.on("selectionChanged",function(){
                 newData = this.selectedList;
+
                 if (this.who=="map"){
                   histogram(newData);
                   handleMap(newData);
@@ -85,6 +85,10 @@
                 if (this.who=="histogram"){
                   handleMap(newData);
                   bakePie(newData);
+                }
+                if (this.who=="pie"){
+                  handleMap(newData);
+                  histogram(newData);
                 }
               });
 

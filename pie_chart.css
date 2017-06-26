@@ -1,3 +1,6 @@
+.arc{
+    cursor: pointer;
+}
 .arc text {
   font: 12px sans-serif;
   text-anchor: middle;
