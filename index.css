@@ -58,8 +58,8 @@
 #choiceButton {
 	position: absolute;
 	margin: 5px 0px 0px 564px;
-	width:auto;
-	height:auto;
+	width:17;
+	height:17;
 	cursor: pointer;
 }
 

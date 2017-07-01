@@ -10,7 +10,7 @@
         <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"
                 integrity="sha512-A7vV8IFfih/D732iSSKi20u/ooOfj/AGehOKq0f4vLT1Zr2Y+RX7C+w8A1gaSasGtRUZpF/NZgzSAu4/Gc41Lg=="
                 crossorigin=""></script>
-        
+
         <script src="recurrentTimeSelectionWidget.js"></script>
         <script src="map.js"></script>
         <script src="histograma.js"></script>
@@ -50,7 +50,7 @@
               mainSVG.append("svg:image")
               .attr ("x", 590)
               .attr("y", 405)
-              .attr("xlink:href", "changeIcon.png")
+              .attr("xlink:href", "changeButton1.png")
               .attr("width",17)
               .attr("height",17)
               .attr("fill", "grey")
@@ -64,11 +64,7 @@
                       if (error) throw error;
                       createRecurrentTimeSelectionWidget(dataCSV2015,dataCSV2016);
                       newData = csv2015.concat(csv2016);
-                      newData = newData.slice(0,100);
-                      //addMarkersToMap(dataCSV2015);
-                      //generatechoropleth(dataCSV2015);
                       handleMap(newData);
-                      //addMarkersToMap(dataCSV2016);
                       histogram(newData);
                       bakePie(newData);
                   });
