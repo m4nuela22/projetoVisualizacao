@@ -3,110 +3,19 @@
     <head>
          <meta charset="utf-8">
          <title> Acidentes de Trânsito - Recife </title>
-         <script src="https://d3js.org/d3.v4.min.js"></script>
-         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"
-                integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ=="
-                crossorigin=""/>
-        <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"
-                integrity="sha512-A7vV8IFfih/D732iSSKi20u/ooOfj/AGehOKq0f4vLT1Zr2Y+RX7C+w8A1gaSasGtRUZpF/NZgzSAu4/Gc41Lg=="
-                crossorigin=""></script>
+     </head>
+<body>
+    <h3> Acidentes de Trânsito no Recife </h3>
+    Projeto da disciplina IF762 (Visualização de Dados) ministrada pelo professor Nivan Ferreira da Universidade Federal de Pernambuco (UFPE). </br>
+    O objetivo do projeto foi colocar em prática os conceitos vistos em sala de aula.</br>
+    O tema escolhido pela equipe foi Acidentes de trânsito em Recife.</br>
+    Utilizamos as bases de dados abertas disponíveis pela prefeitura do Recife dos acidentes de trânsito de recife nos anos de 2015 e 2016.</br>
+    Para a visualização dos dados nos utilizamos da biblioteca D3 em javascript e leaftlet para a apresentação do mapa.</br>
 
-        <script src="recurrentTimeSelectionWidget.js"></script>
-        <script src="map.js"></script>
-        <script src="histograma.js"></script>
-        <script src="pie_chart.js"></script>
+    </br> <b>Links:</b> </br>
+    <a href="Proposta projeto - Acidentes de Trânsito no Recife.pdf">Proposta do projeto</a> </br>
+    <a href="http://dados.recife.pe.gov.br/dataset/acidentes-de-transito-com-e-sem-vitimas">Bases de Dados</a> </br>
+    <a href="indexProject.html">Projeto</a> </br>
 
-         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-         <link rel="stylesheet" type="text/css" href="pie_chart.css">
-         <link rel="stylesheet" type="text/css" href="index.css">
-
-    </head>
-    <body>
-          <div class="page-title"> Uma análise dos acidentes de trânsito na cidade do Recife - PE</div>
-          <div id="tooltip" class="hidden">
-          <p><strong><span id="label">Tipo</span></strong></p>
-          <p><span id="value">100</span>, <span id="percentage">100</span>%</p>
-          </div>
-
-          <div id="mapDiv" style="width: 600px; height: 400px; margin-left: 10px"></div>
-          <!--input type="button" id="choiceButton" value="<->" onclick="swapMap()"-->
-          <div id="controles"></div>
-
-          <script>
-             var myDispath = d3.dispatch("selectionChanged");
-              createMap();
-              var mapState = "marker";
-              var newData;
-              var margin = {top:10, right:10, bottom:10,left:10};
-              var width = screen.width - margin.left - margin.right;
-              var height = screen.height - margin.top - margin.bottom;
-              var mainSVG = d3.select("body")
-              .append("svg")
-              .attr("id","mainSVG")
-              .attr("width", width)
-              .attr("height",height);
-
-              mainSVG.append("svg:image")
-              .attr ("x", 590)
-              .attr("y", 405)
-              .attr("xlink:href", "changeButton1.png")
-              .attr("width",17)
-              .attr("height",17)
-              .attr("fill", "grey")
-              .attr("id", "choiceButton")
-              .on("click",swapMap);
-
-
-              d3.csv("acidentesTransito2015.csv",function(error, dataCSV2015) {
-                  if (error) throw error;
-                  d3.csv("acidentesTransito2016.csv",function(error, dataCSV2016) {
-                      if (error) throw error;
-                      createRecurrentTimeSelectionWidget(dataCSV2015,dataCSV2016);
-                      newData = csv2015.concat(csv2016);
-                      handleMap(newData);
-                      histogram(newData);
-                      bakePie(newData);
-                  });
-              });
-
-              myDispath.on("selectionChanged",function(){
-                newData = this.selectedList;
-
-                if (this.who=="map"){
-                  histogram(newData);
-                  handleMap(newData);
-                  bakePie(newData);
-                }
-                if (this.who=="histogram"){
-                  handleMap(newData);
-                  bakePie(newData);
-                }
-                if (this.who=="pie"){
-                  handleMap(newData);
-                  histogram(newData);
-                }
-              });
-
-              function handleMap(newData){
-                if(mapState=="choropleth"){
-                  generatechoropleth(newData);
-                }else{
-                  addMarkersToMap(newData);
-                }
-              }
-
-              function swapMap(){
-                console.log("click!");
-                if (mapState=="choropleth"){
-                  mapState = "maker";
-                  addMarkersToMap(newData)
-                }else{
-                  mapState = "choropleth";
-                  generatechoropleth(newData);
-                }
-              }
-
-          </script>
-    </body>
-</html>
+    <p> <b>Grupo:</b> <br/> Luís Delgado (lhds) <br/>Manuela Barbosa (msb3) </br>Marina Lima (mml3)</br>
+</body>
