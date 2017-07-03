@@ -1,64 +1,70 @@
 html {
     position: relative;
     min-height: 100%;
-    background-color: #ADD8E6;
 }
 
-div#cabecalho {
-    display:inline-block;
-    width:100%;
-    background-color: blue;
-    text-align: center;
-    color: white;
-    padding-top: 1%;
-    padding-bottom: 1%;
+/* Cabeçalho */
+
+.linkCabecalho{
+  curser: pointer;
 }
 
-a.linkCabecalho {
-	display: inline-table;
-	margin-left: 5%;
+.navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
 }
 
-div#cabecalho a {
-	text-decoration: none;
-	color: white;
-}
-
-div#cabecalho a#primeiro {
-	display: inline-table;
-    margin-left: 0%;
-}
-
-div#primeiro {
-	margin-left: 0%;
-	margin-right: 3%;
-}
-
-div#grupo {
-  	width: 100%;
-  	max-width: 100%;
-}
-
-h1 {
-	padding: 2%;
-}
-
-h2, h3 {
+.centralize {
   text-align: center;
 }
 
-div#grupo img {
-	width: 50px;
-  	height: 50px;
-  	border-radius: 50%;
+/* Fim Cabeçalho */
+
+.jumbotron p{
+  font-size: 18px;
 }
 
-div#grupo p {
-	text-align: center;
+
+/* CSS Grupo */
+.card {
+  overflow: hidden;
+  position: relative;
+  border: 1px solid #CCC;
+  border-radius: 8px;
+  text-align: center;
+  padding: 0;
+  background-color: #284c79;
+  color: rgb(136, 172, 217);
 }
 
-p#grupo img {
-	border-radius: 0%;
-	max-width: 50px;
-	max-height: 50px;
-};
+.card .header-bg {
+  /* This stretches the canvas across the entire hero unit */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  border-bottom: 1px #FFF solid;
+  /* This positions the canvas under the text */
+  z-index: 1;
+  background: white;
+}
+.card .avatar {
+  position: relative;
+  margin-top: 15px;
+  z-index: 100;
+}
+
+.card .avatar img {
+  width: 100px;
+  height: 100px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  border: 1.5px solid #FFF;
+}
+
+.offset{
+  margin-left: 12%;
+}

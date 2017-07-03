@@ -1,30 +1,83 @@
 <!DOCTYPE html>
-<html>
+<html lan="en">
     <head>
          <meta charset="utf-8">
          <title> Acidentes de Trânsito - Recife </title>
+         <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+         <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
          <link rel="stylesheet" href="index.css">
      </head>
 <body>
     <h1 align="center"> Acidentes de Trânsito no Recife</h1>
-    <div id="cabecalho">
-        <a class="linkCabecalho" id="primeiro" href="PropostaProjeto.pdf">Proposta do projeto</a>
-        <a class="linkCabecalho" href="http://dados.recife.pe.gov.br/dataset/acidentes-de-transito-com-e-sem-vitimas">Bases de Dados</a>
-        <a class="linkCabecalho" href="indexProject.html">Projeto</a>
+    <div class="centralize">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="nav navbar-nav">
+          <li><a class="linkCabecalho" id="primeiro" href="/PropostaProjeto.pdf">Proposta do projeto</a></li>
+          <li><a class="linkCabecalho" href="http://dados.recife.pe.gov.br/dataset/acidentes-de-transito-com-e-sem-vitimas">Bases de Dados</a></li>
+          <li><a class="linkCabecalho" href="/indexProject.html">Projeto</a></li>
+        </div>
+      </div>
+    </nav> 
     </div>
-    <div align="center"><br>
-        Projeto da disciplina IF762 (Visualização de Dados) ministrada pelo professor Nivan Ferreira da Universidade Federal de Pernambuco (UFPE). </br>
-        O objetivo do projeto foi colocar em prática os conceitos vistos em sala de aula.</br>
-        O tema escolhido pela equipe foi Acidentes de trânsito em Recife.</br>
-        Utilizamos as bases de dados abertas disponíveis pela prefeitura do Recife dos acidentes de trânsito de recife nos anos de 2015 e 2016.</br>
-        Para a visualização dos dados nos utilizamos da biblioteca D3 em javascript e leaftlet para a apresentação do mapa.</br>
+    <div class="container">
+    <div class="jumbotron">
+      <p>Projeto da disciplina IF762 (Visualização de Dados) ministrada pelo professor Nivan Ferreira da Universidade Federal de Pernambuco (UFPE). </br>
+      O objetivo do projeto foi colocar em prática conceitos vistos em sala de aula com uma base real de dados.</br>
+      O tema escolhido foi Acidentes de trânsito em Recife.</br>
+      Utilizamos as bases de dados abertas disponíveis pela prefeitura do Recife dos acidentes de trânsito de recife nos anos de 2015 e 2016.</br>
+      Para a visualização dos dados nos utilizamos da biblioteca D3 em javascript e leaftlet para a apresentação do mapa.</br></p>
+      </div>
+    </div>    
+  </div>
+
+        <div class="container">
+          <div class="row">
+              <div class="col-sm-3 offset">
+                  <div class="card">
+                      <img src="https://static.pexels.com/photos/1240/road-street-blur-blurred.jpg" class="header-bg" width="250" height="70" id="header-blur"></img>
+                      <div class="avatar">
+                          <img src="http://cin.ufpe.br/~lhds/luisDelgado.jpg"/>
+                      </div>
+                      <div class="content">
+                          <p>Luís Delgado <br>
+                             Ciência da Computação</p>
+                          <p><a href="http://cin.ufpe.br/~lhds" type="button" class="btn btn-default">Contato</a></p>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-sm-3">
+                  <div class="card">
+                      <img src="https://i.ytimg.com/vi/MAkJvjS3V7M/maxresdefault.jpg" class="header-bg" width="250" height="70" id="header-blur"></img>
+                      <div class="avatar">
+                          <img src="https://scontent.frec3-1.fna.fbcdn.net/v/t1.0-9/17309372_1139913856117609_203095911979138792_n.jpg?oh=2fb0975eae582e74f6779f21d553dccd&oe=5A11C48F"/>
+                      </div>
+                      <div class="content">
+                          <p>Manuela Barbosa <br>
+                             Ciência da Computação</p>
+                          <p><a href="https://github.com/m4nuela" type="button" class="btn btn-default">Contato</a></p>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-sm-3">
+                  <div class="card">
+                      <img src="https://static.pexels.com/photos/1227/night-dark-blur-blurred.jpg" class="header-bg" width="250" height="70" id="header-blur"></img>
+                      <div class="avatar">
+                          <img src="https://avatars2.githubusercontent.com/u/7455173?v=3&s=400"/>
+                      </div>
+                      <div class="content">
+                          <p>Marina Lima <br>
+                             Engenharia da Computação</p>
+                          <p><a href="https://github.com/mahmlima"type="button" class="btn btn-default">Contato</a></p>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-sm-2"></div>
+          </div>
+      </div>
+
     </div>
-    <div id="grupo">
-      <h2>Grupo</h2>
-        <p align="center"><br>
-          <a href="http://cin.ufpe.br/~lhds"><img src="http://cin.ufpe.br/~lhds/luisDelgado.jpg" title="Luís Delgado (lhds)"/></a>
-          <a href="https://github.com/m4nuela"><img src="https://scontent.frec3-1.fna.fbcdn.net/v/t1.0-9/17309372_1139913856117609_203095911979138792_n.jpg?oh=2fb0975eae582e74f6779f21d553dccd&oe=5A11C48F" title="Manuela Barbosa (msb3)"/></a>
-          <a href="https://github.com/mahmlima"><img src="https://avatars2.githubusercontent.com/u/7455173?v=3&s=400" title="Marina Lima (mml3)"/></a>
-        </p>
-    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 </body>
