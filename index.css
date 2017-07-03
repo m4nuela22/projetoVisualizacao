@@ -1,7 +1,7 @@
 html {
     position: relative;
     min-height: 100%;
-    background-color: yellow;
+    background-color: #ADD8E6;
 }
 
 div#cabecalho {
@@ -41,7 +41,6 @@ div#grupo {
 
 h1 {
 	padding: 2%;
-	background-color: yellow;
 }
 
 h2, h3 {
