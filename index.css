@@ -1,0 +1,65 @@
+html {
+    position: relative;
+    min-height: 100%;
+    background-color: yellow;
+}
+
+div#cabecalho {
+    display:inline-block;
+    width:100%;
+    background-color: blue;
+    text-align: center;
+    color: white;
+    padding-top: 1%;
+    padding-bottom: 1%;
+}
+
+a.linkCabecalho {
+	display: inline-table;
+	margin-left: 5%;
+}
+
+div#cabecalho a {
+	text-decoration: none;
+	color: white;
+}
+
+div#cabecalho a#primeiro {
+	display: inline-table;
+    margin-left: 0%;
+}
+
+div#primeiro {
+	margin-left: 0%;
+	margin-right: 3%;
+}
+
+div#grupo {
+  	width: 100%;
+  	max-width: 100%;
+}
+
+h1 {
+	padding: 2%;
+	background-color: yellow;
+}
+
+h2, h3 {
+  text-align: center;
+}
+
+div#grupo img {
+	width: 50px;
+  	height: 50px;
+  	border-radius: 50%;
+}
+
+div#grupo p {
+	text-align: center;
+}
+
+p#grupo img {
+	border-radius: 0%;
+	max-width: 50px;
+	max-height: 50px;
+};
