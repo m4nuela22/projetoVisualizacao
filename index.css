@@ -3,10 +3,29 @@ html {
     min-height: 100%;
 }
 
+body{
+  background-color: #F2FCFF;
+}
+
+/* Título da página */
+.page-title{
+  text-align:center;
+  margin-bottom: 15px;
+  color: #160C28;
+}
+
+/* /Título da página */
+
+
 /* Cabeçalho */
 
 .linkCabecalho{
   curser: pointer;
+}
+
+.navbar-default {
+    background-color: #160C28;
+    border-color: #e1e1e1;
 }
 
 .navbar .navbar-nav {
@@ -15,16 +34,31 @@ html {
   vertical-align: top;
 }
 
+.navbar-default .navbar-nav>li>a {
+    color: #D9D9DB;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 200;
+    font-size: 14px;
+}
+
 .centralize {
   text-align: center;
 }
 
-/* Fim Cabeçalho */
+
+
+/* /Cabeçalho */
+
+/* Corpo da página */
+.jumbotron{
+  background-color: #F7E4AF; /*amarelo*/
+}
 
 .jumbotron p{
   font-size: 18px;
 }
 
+/* /Corpo da página */
 
 /* CSS Grupo */
 .card {
@@ -34,8 +68,9 @@ html {
   border-radius: 8px;
   text-align: center;
   padding: 0;
-  background-color: #284c79;
-  color: rgb(136, 172, 217);
+  background-color: #160C28;
+  color: #E1EDEF;
+  font-weight: 300;
 }
 
 .card .header-bg {
@@ -63,6 +98,15 @@ html {
   -moz-border-radius: 50%;
   border-radius: 50%;
   border: 1.5px solid #FFF;
+}
+
+.card .content p{
+  margin-top:4px;
+}
+.btn-default {
+  color: #333;
+  background-color: #F5F4F7;
+  border-color: #6B5977;
 }
 
 .offset{
