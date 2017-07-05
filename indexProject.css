@@ -1,12 +1,3 @@
-.page-title {
-	font: 24pt sans-serif;
-	color: #252729;
-	position: relative;
-	top: 20px;
-	width: 100%;
-	left:10%;
-}
-
 #mapDiv {
 	width: 600px;
 	height: 400px;
@@ -74,3 +65,50 @@
     margin-right: 8px;
     opacity: 1;
 }
+
+/* index.css */
+
+body{
+  background-color: #F2FCFF;
+}
+
+
+/* Título da página */
+.page-title{
+  text-align:center;
+  margin-bottom: 15px;
+  color: #160C28;
+}
+/* /Título da página */
+
+/* Cabeçalho */
+
+.navbar-default {
+    background-color: #160C28;
+    border-color: #e1e1e1;
+}
+
+.navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: #D9D9DB;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 200;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.navbar-default .navbar-nav>li>a:hover{
+    background-color: #241D31;
+    color:#D9D9DB;
+}
+
+.centralize {
+  text-align: center;
+}
+
+

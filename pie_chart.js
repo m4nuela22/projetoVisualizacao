@@ -55,6 +55,9 @@ function makeFilling(data,total){
 	height = 300,
 	radius = Math.min(width, height) / 2;
 	
+	marginTop = 400;
+	marginLeft = 850;
+
 	if (total == 0){
 		var dataset = [[10,"Nenhum acidente reportado nesse período"]];
 
@@ -63,7 +66,7 @@ function makeFilling(data,total){
 			.enter()
 			.append("circle")
 			.attr("class","circle-empty")
-			.attr("transform", "translate(" + (750) + "," + (380) + ")")
+			.attr("transform", "translate(" + (marginLeft) + "," + (marginTop) + ")")
 			.attr("r", 140)
 			.attr("cx", 50)
 			.attr("cy", 20);
@@ -73,7 +76,7 @@ function makeFilling(data,total){
 			.enter()
 			.append("text")
 			.attr("class","circle-empty-text")
-			.attr("transform", "translate(" + (685) + "," + (400) + ")")
+			.attr("transform", "translate(" + (685) + "," + (marginTop+20) + ")")
 			.text(function(d) {return d[1];});
 
 	}else{
@@ -93,7 +96,7 @@ function makeFilling(data,total){
 			.data(pie(data))
 			.enter().append("g")
 			.attr("class", "arc")
-			.attr("transform", "translate(" + (800) + "," + (height+500)/2+ ")")
+			.attr("transform", "translate(" + (marginLeft+50) + "," + marginTop + ")")
 			.on("mouseover", function (d) {
 				d3.select("#tooltip")
 				.style("left", d3.event.pageX + "px")
