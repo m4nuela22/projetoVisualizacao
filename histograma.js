@@ -39,7 +39,7 @@ function histogram (array) {
 	var histogramScale = d3.scaleLinear().domain([semVitima + comVitima,0]).range([height,0]);
 
 	var padding = 90;
-	var margemEsquerdaMin = 659;
+	var margemEsquerdaMin = 749;
 	var margemEsquerdaMax = 728;
 
 	// Atualizando array
@@ -49,13 +49,13 @@ function histogram (array) {
 	// Criando eixos
 	var xAxisGroup = mainSVG.append("g")
 			.attr("class","axis")
-			.attr("transform","translate("+ (margemEsquerdaMin + padding) +","+(height-margin.top+21)+")");
+			.attr("transform","translate("+ (margemEsquerdaMin + padding) +","+(height-margin.top+28)+")");
 	var xAxis = d3.axisBottom(xScale)
 			.ticks(0);
 	xAxisGroup.call(xAxis);
 	var yAxisGroup = mainSVG.append("g")
 			.attr("class","axis")
-			.attr("transform","translate("+ (margemEsquerdaMin + padding) +",18)")
+			.attr("transform","translate("+ (margemEsquerdaMin + padding) +",25)")
 			.attr("stroke","black");
 	var yAxis = d3.axisLeft(yScale);
 	yAxisGroup.call(yAxis);
@@ -71,12 +71,12 @@ function histogram (array) {
 	    	.attr("transform","translate(" + padding + "," + (height-margin.top+21)+ ") scale(1,-1)")
 	    	.attr("x", function(d){
 	    		if (d.nome=="Sem Vítima") {
-        			return 669;
+        			return 759;
       			} else {
-        			return 728;
+        			return 818;
       			}
 	    	})
-	    	.attr("y", 0)
+	    	.attr("y", -7)
 	    	.attr("width", 50)
 	    	.attr("height", function(d) {return histogramScale(d.vitimas);})
 	    	.attr("fill", function(d) {
@@ -99,12 +99,12 @@ function histogram (array) {
 			.attr("transform","translate(103,0)")
 			.attr("x", function(d) {
 				if (d.nome=="Sem Vítima") {
-        			return 669;
+        			return 759;
       			} else {
-        			return 728;
+        			return 818;
       			}
 	    	})
-	    	.attr("y", function(d) {return height + margin.top + margin.bottom + 0;})
+	    	.attr("y", function(d) {return height + margin.top + margin.bottom + 7;})
 	    	.text( function (d) { return Math.round((d.vitimas*100)/(comVitima + semVitima)) + "%"; })
 	    	.attr("font-family", "sans-serif")
 			.style("font-size", "12px")
@@ -123,12 +123,12 @@ function histogram (array) {
 		.attr("transform","translate(90,0)")
 		.attr("x", function(d) {
 			if (d.nome=="Sem Vítima") {
-        		return 669;
+        		return 759;
       		} else {
-        		return 728;
+        		return 818;
       		}
 	    })
-	    .attr("y", function(d) {return height + margin.top + margin.bottom + 20;})
+	    .attr("y", function(d) {return height + margin.top + margin.bottom + 27;})
 	    .text( function (d) { return d.nome; })
 	    .attr("font-family", "sans-serif")
 		.style("font-size", "9px")
