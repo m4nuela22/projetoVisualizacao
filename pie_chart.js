@@ -98,9 +98,10 @@ function makeFilling(data,total){
 			.attr("class", "arc")
 			.attr("transform", "translate(" + (marginLeft+50) + "," + marginTop + ")")
 			.on("mouseover", function (d) {
+				console.log(d3.event.pageX,d3.event.pageY);
 				d3.select("#tooltip")
-				.style("left", d3.event.pageX + "px")
-				.style("top", d3.event.pageY + "px")
+				.style("left", d3.event.pageX-50 + "px")
+				.style("top", d3.event.pageY-50 + "px")
 				.style("opacity", 1)
 				.select("#label")
 				.text(d.data.label);
