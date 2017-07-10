@@ -32,6 +32,12 @@ function histogram (array) {
 	    	semVitima = semVitima + 1;
 	  	}
 	}
+	console.log("Total de Vítimas :" + (comVitima+semVitima));
+	mainSVG.append('text')
+	.attr("x", 440)
+	.attr("y", 433)
+	.attr('class','textHist')
+	.text("Total de Vítimas : " + (comVitima+semVitima));
 
 	// Criando escalas
 	var xScale = d3.scaleLinear().domain([0,100]).range([0,130]);
