@@ -1,38 +1,59 @@
 <!DOCTYPE html>
 <html>
     <head>
-         <meta charset="utf-8">
-         <title> Acidentes de Trânsito - Recife </title>
-         <script src="https://d3js.org/d3.v4.min.js"></script>
-         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"
-                integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ=="
-                crossorigin=""/>
-        <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"
-                integrity="sha512-A7vV8IFfih/D732iSSKi20u/ooOfj/AGehOKq0f4vLT1Zr2Y+RX7C+w8A1gaSasGtRUZpF/NZgzSAu4/Gc41Lg=="
-                crossorigin=""></script>
+      <meta charset="utf-8">
+      <title> Acidentes de Trânsito - Recife </title>
+      <script src="https://d3js.org/d3.v4.min.js"></script>
+      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"
+      integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ=="
+      crossorigin=""/>
+      <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"
+      integrity="sha512-A7vV8IFfih/D732iSSKi20u/ooOfj/AGehOKq0f4vLT1Zr2Y+RX7C+w8A1gaSasGtRUZpF/NZgzSAu4/Gc41Lg=="
+      crossorigin=""></script>
 
-        <script src="recurrentTimeSelectionWidget.js"></script>
-        <script src="map.js"></script>
-        <script src="histograma.js"></script>
-        <script src="pie_chart.js"></script>
+      <script src="recurrentTimeSelectionWidget.js"></script>
+      <script src="map.js"></script>
+      <script src="histograma.js"></script>
+      <script src="pie_chart.js"></script>
 
-         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+      <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
 
-         <link rel="stylesheet" type="text/css" href="pie_chart.css">
-         <link rel="stylesheet" type="text/css" href="indexProject.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+      <link rel="stylesheet" type="text/css" href="pie_chart.css">
+      <link rel="stylesheet" type="text/css" href="indexProject.css">
 
     </head>
-    <body>
-          <div class="page-title"> Uma análise dos acidentes de trânsito na cidade do Recife - PE</div>
+  <body>
+    <h1 class="page-title">Acidentes de Trânsito no Recife</h1>
+
+    <div class="centralize">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="nav navbar-nav">
+          <li><a class="linkCabecalho" href="index.html">Home</a></li>
+          <li><a class="linkCabecalho" id="primeiro" href="PropostaProjeto.pdf">Proposta do projeto</a></li>
+          <li><a class="linkCabecalho" href="http://dados.recife.pe.gov.br/dataset/acidentes-de-transito-com-e-sem-vitimas">Bases de Dados</a></li>
+          <li><a class="linkCabecalho" href="indexProject.html">Projeto</a></li>
+
+        </div>
+      </div>
+    </nav> 
+    </div>
+
+    
           <div id="tooltip" class="hidden">
           <p><strong><span id="label">Tipo</span></strong></p>
           <p><span id="value">100</span>, <span id="percentage">100</span>%</p>
           </div>
 
-          <div id="mapDiv" style="width: 600px; height: 400px; margin-left: 10px"></div>
+          <div id="mapDiv" style="width: 600px; height: 400px; margin-left: 80px;"></div>
           <!--input type="button" id="choiceButton" value="<->" onclick="swapMap()"-->
           <div id="controles"></div>
+    
 
+        
           <script>
              var myDispath = d3.dispatch("selectionChanged");
               createMap();
@@ -45,7 +66,8 @@
               .append("svg")
               .attr("id","mainSVG")
               .attr("width", width)
-              .attr("height",height);
+              .attr("height",height)
+              .attr("style","margin-top:75px; margin-left: 60px;");
 
               mainSVG.append("svg:image")
               .attr ("x", 590)
